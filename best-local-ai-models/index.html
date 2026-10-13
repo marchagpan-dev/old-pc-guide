@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+  <script src="/language.js?v=2"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local AI models: examples filtered by RAM — Old PC Guide</title>
+<meta name="description" content="Examples of local AI models and indicative memory estimates for older PCs. Check version, requirements, license, and availability on the official sites.">
+<meta name="theme-color" content="#0d0d12">
+<link rel="canonical" href="https://www.guidapcvecchi.it/best-local-ai-models/">
+<link rel="alternate" hreflang="it" href="https://www.guidapcvecchi.it/it/migliori-modelli-ai-locali/">
+<link rel="alternate" hreflang="en" href="https://www.guidapcvecchi.it/best-local-ai-models/">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="../style.css?v=10">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Examples of local AI models for old PCs",
+  "inLanguage": "en",
+  "description": "Catalog of AI models that can run locally, with parameters, on-disk size, and required RAM.",
+  "itemListOrder": "https://schema.org/ItemListUnordered",
+  "numberOfItems": 36,
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Qwen2.5 7B Instruct", "url": "https://www.guidapcvecchi.it/best-local-ai-models/#filtra" },
+    { "@type": "ListItem", "position": 2, "name": "Qwen2.5-Coder 7B", "url": "https://www.guidapcvecchi.it/best-local-ai-models/#specializzati" },
+    { "@type": "ListItem", "position": 3, "name": "Llama 3.1 8B Instruct", "url": "https://www.guidapcvecchi.it/best-local-ai-models/#filtra" },
+    { "@type": "ListItem", "position": 4, "name": "Gemma 3 4B", "url": "https://www.guidapcvecchi.it/best-local-ai-models/#specializzati" },
+    { "@type": "ListItem", "position": 5, "name": "DeepSeek-R1-Distill-Qwen-7B", "url": "https://www.guidapcvecchi.it/best-local-ai-models/#specializzati" },
+    { "@type": "ListItem", "position": 6, "name": "Qwen3 30B-A3B", "url": "https://www.guidapcvecchi.it/best-local-ai-models/#specializzati" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the best local AI model for a PC with 8 GB of RAM?",
+      "acceptedAnswer": { "@type": "Answer", "text": "With 8 GB total, available memory depends on the OS, applications, and context. Small or mid-sized quantized models are a starting point; some 7-8B models can be at the limit. The examples in the catalog are not an up-to-date ranking: verify the file, runtime requirements, and free memory before downloading." }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between a 7B model and a 14B model?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The result varies with the model and the task: more parameters don't always guarantee a better answer. A quantized 14B generally needs more memory than a 7B; also consider context, runtime, and operating system. Check the actual file size and leave additional room." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is Q4_K_M quantization and does it really matter?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Quantization reduces the memory used by the weights compared with higher precisions. Q4_K_M is a common trade-off, but the impact on quality varies by model and task; compare the specific model and quantization. Smaller formats require less memory but can degrade some capabilities more." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does a larger model always give better results?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Size, quality, and speed don't have a simple relationship: the result depends on the model, task, quantization, and hardware. More parameters often increase memory and time, but quality must be judged on the use case." }
+    },
+    {
+      "@type": "Question",
+      "name": "Which model speaks Italian best?",
+      "acceptedAnswer": { "@type": "Answer", "text": "There is no universal winner: language, version, prompt, and task change the results. Qwen, Llama, Gemma, and others have instruct variants that can reply in Italian; try the available versions with your own requests." }
+    },
+    {
+      "@type": "Question",
+      "name": "Where do you download local AI models?",
+      "acceptedAnswer": { "@type": "Answer", "text": "You can check the official model cards or the catalogs of the runtime you chose. LM Studio and Ollama may offer different files or formats and don't always download the same artifact. Verify author, version, format, quantization, requirements, and license before use." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I free up memory for a larger model?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Close unneeded applications, reduce context length, and choose a lighter quantization if the model offers one. A lightweight operating system can help, but it doesn't guarantee that a model will fit: consider cache, buffers, and real free memory." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header>
+  <a class="logo" href="../">🖥️ Old <span>PC Guide</span></a>
+  <nav>
+    <a href="../#calcolatore">Calculator</a>
+    <a href="../lm-studio-old-pc/">LM Studio</a>
+    <a href="../linux-old-pcs/">Linux</a>
+    <a href="../best-local-ai-models/" aria-current="page">AI Models</a>
+    <a href="../ollama-vs-lm-studio/">Ollama vs LM Studio</a>
+  </nav>
+</header>
+
+<div class="crumbs">
+  <a href="../">Home</a><span>/</span>Best local AI models
+</div>
+
+<div class="hero sub">
+  <div class="kicker">Catalog</div>
+  <h1>Examples of local AI models, <em>filtered for your RAM</em></h1>
+  <p>The catalog contains <b><span class="numeroModelli">37</span> examples</b> with size and memory estimates; it is not a real-time ranking and names/versions can change. Verify availability, runtime compatibility, technical specs, and license at the official source before downloading or using a model.</p>
+  <div class="meta">
+    <span><span class="numeroModelli">37</span> models</span>
+    <span>8 families</span>
+    <span>4 task types</span>
+    <span>Filtering runs in the browser</span>
+  </div>
+</div>
+
+<main>
+  <nav class="toc">
+    <b>On this page</b>
+    <ol>
+      <li><a href="#filtra">Filter by your RAM</a></li>
+      <li><a href="#guida-rapida">Quick guide: which to choose</a></li>
+      <li><a href="#quant">Quantization explained</a></li>
+      <li><a href="#dimensione">Model size</a></li>
+      <li><a href="#specializzati">Models for specific tasks</a></li>
+      <li><a href="#tabella">Full table</a></li>
+      <li><a href="#licenza">Licenses and commercial use</a></li>
+      <li><a href="#faq">Frequently asked questions</a></li>
+    </ol>
+  </nav>
+
+  <section class="card" id="filtra">
+    <h2>Filter by your RAM</h2>
+    <p class="desc">Enter RAM, CPU, and GPU to get an indicative estimate of memory and speed. The results are not benchmarks: check the model, the quantization, the context, and the free memory on your PC. The calculation runs in the browser.</p>
+
+    <div class="minitool">
+      <div class="grid3">
+        <div class="field">
+          <label for="mRam">Installed RAM</label>
+          <select id="mRam"></select>
+        </div>
+        <div class="field">
+          <label for="mCpu">Processor</label>
+          <select id="mCpu"></select>
+        </div>
+        <div class="field">
+          <label for="mGpu">Graphics card</label>
+          <select id="mGpu"></select>
+        </div>
+        <div class="field">
+          <label for="mUso">What do you want to do</label>
+          <select id="mUso">
+            <option value="tutti">All tasks</option>
+            <option value="Text" selected>Answer and write text</option>
+            <option value="Code">Programming</option>
+            <option value="Reasoning">Reason and solve problems</option>
+            <option value="Vision">Read images and documents</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="mSo">Operating system</label>
+          <select id="mSo">
+            <option value="win" selected>Windows</option>
+            <option value="linux">Linux</option>
+            <option value="mac">macOS (Apple Silicon)</option>
+          </select>
+        </div>
+      </div>
+      <div class="row-btn">
+        <button class="btn" onclick="modFiltra()">🔍 Show me the models</button>
+        <button class="btn ghost" onclick="modAzzera()">Reset</button>
+      </div>
+    </div>
+
+    <div id="modEsito"></div>
+  </section>
+
+  <section class="card" id="guida-rapida">
+    <h2>Quick guide: which to choose</h2>
+    <p class="desc">If you don't want to read everything, this is the part you need. Five rows, one per hardware tier.</p>
+
+    <div class="tablewrap">
+      <table class="cmp">
+        <thead>
+          <tr><th>Your PC</th><th>RAM</th><th>Choose this</th><th>Why</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PC with very limited memory</td><td class="num">2 GB</td>
+            <td><b>Example: 0.5-1B model</b></td>
+            <td>Runtime compatibility and context can make loading impractical.</td>
+          </tr>
+          <tr>
+            <td>PC with 4 GB</td><td class="num">4 GB</td>
+            <td><b>Example: 1-2B model</b></td>
+            <td>Leave memory for the OS, runtime, and context; results also depend on CPU instructions.</td>
+          </tr>
+          <tr>
+            <td>PC with 8 GB</td><td class="num">8 GB</td>
+            <td><b>Example: 3-8B model</b></td>
+            <td>A 7-8B Q4 can be at the limit; check free memory and runtime.</td>
+          </tr>
+          <tr>
+            <td>PC with 16 GB</td><td class="num">16 GB</td>
+            <td><b>Example: 7-14B model</b></td>
+            <td>Required memory changes with weights, quantization, and context.</td>
+          </tr>
+          <tr>
+            <td>PC with lots of RAM or a GPU</td><td class="num">variable</td>
+            <td><b>Largest compatible model</b></td>
+            <td>Check memory, license, runtime, and quality on your task.</td>
+          </tr>
+          <tr>
+            <td>With a dedicated GPU</td><td class="num">Variable VRAM</td>
+            <td><b>Model supported by the backend</b></td>
+            <td>VRAM limits which weights can be loaded; speed and compatibility depend on the card and the runtime.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout ok">
+      <h3>The rule of the two limits</h3>
+      <p>Check whether the model <b>fits in memory</b> and whether the speed is adequate for your use. The table only offers examples: requirements and throughput depend on the file, runtime, CPU/GPU, context, and open applications.</p>
+    </div>
+  </section>
+
+  <section class="card" id="quant">
+    <h2>Quantization explained</h2>
+    <p class="desc">It's the concept that makes local AI possible on normal PCs. If you understand it, you also understand why 0.4 GB and 40 GB files exist for the same model.</p>
+
+    <p>A model stores its "weights" in a numeric format chosen at release time. <b>Quantizing</b> reduces the memory used, but it can change quality differently depending on the model, the format, and the task. Actual sizes also vary between files of the same model.</p>
+
+    <div class="tablewrap">
+      <table class="cmp">
+        <thead>
+          <tr><th>Format</th><th>Bits per weight</th><th>Size of a 7B</th><th>Quality</th><th>When to use it</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>Q8_0</b></td><td class="num">8</td><td class="num">varies</td><td>Reduces precision less, but isn't identical in every test</td><td>If available memory allows it</td></tr>
+          <tr><td><b>Q6_K</b></td><td class="num">6</td><td class="num">varies</td><td>Memory/precision trade-off</td><td>With headroom for context and system</td></tr>
+          <tr><td><b>Q5_K_M</b></td><td class="num">5</td><td class="num">varies</td><td>Intermediate trade-off; quality depends on the model</td><td>Compare on your desired task</td></tr>
+          <tr><td><b>Q4_K_M</b></td><td class="num">4</td><td class="num">varies</td><td>Common choice to reduce memory; the loss varies</td><td>Weigh memory and quality for your use</td></tr>
+          <tr><td><b>Q3_K_M</b></td><td class="num">3</td><td class="num">varies</td><td>More compact, with possibly bigger penalties</td><td>Try it if larger formats don't fit</td></tr>
+          <tr><td><b>Q2_K</b></td><td class="num">2</td><td class="num">varies</td><td>Most compressed format, potentially lower quality</td><td>Compare before choosing it</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout attenzione">
+      <h3>Size and precision are different trade-offs</h3>
+      <p>A larger model can achieve better results on some tasks, but it isn't a universal rule. Quantization can affect code, language, reasoning, and other tests differently. Compare specific versions on your use case instead of choosing only by parameters or bits.</p>
+    </div>
+  </section>
+
+  <section class="card" id="dimensione">
+    <h2>Model size: what actually changes</h2>
+    <p class="desc">A larger size generally needs more memory, but quality and speed depend on the model, the quantization, the task, and the hardware.</p>
+
+    <div class="tablewrap">
+      <table class="cmp">
+        <thead>
+          <tr><th>Size</th><th>Indicative Q4 file</th><th>Indicative RAM</th><th>Speed</th><th>Use</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>0.5-1B</b></td><td class="num">about 0.5-1 GB</td><td class="num">higher than the file</td><td>Depends on hardware</td><td>Short, simple tasks</td></tr>
+          <tr><td><b>2-3B</b></td><td class="num">about 1.5-2.5 GB</td><td class="num">higher than the file</td><td>Depends on hardware</td><td>Light general use</td></tr>
+          <tr><td><b>4B</b></td><td class="num">about 2.5-4 GB</td><td class="num">file + context</td><td>Depends on hardware</td><td>General use; check quality and language</td></tr>
+          <tr><td><b>7-8B</b></td><td class="num">about 4-6 GB</td><td class="num">file + context</td><td>Depends on hardware</td><td>Can be at the limit on PCs with 8 GB total</td></tr>
+          <tr><td><b>12-14B</b></td><td class="num">about 8-11 GB</td><td class="num">more than the file</td><td>Depends on hardware</td><td>Account for OS, context, and headroom</td></tr>
+          <tr><td><b>24-32B</b></td><td class="num">about 15-22 GB</td><td class="num">more than the file</td><td>Depends on hardware</td><td>Adequate memory needed; some models are MoE</td></tr>
+          <tr><td><b>70B</b></td><td class="num">about 40 GB or more</td><td class="num">much more than the file</td><td>Depends on hardware</td><td>Needs lots of memory; 24 GB VRAM is not enough for all weights</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout info">
+      <h3>Size drives memory and time</h3>
+      <p>Generation repeatedly works over the weights and the context data, so larger models tend to need more memory and time. Real throughput depends on bandwidth, CPU/GPU, backend, quantization, and context length: it can't be inferred precisely from size alone.</p>
+    </div>
+  </section>
+
+  <section class="card" id="specializzati">
+    <h2>Models for specific tasks</h2>
+    <p class="desc">A specialized model can be better suited to a task, but quality depends on the version and the request. Try the model on the work you want to do.</p>
+
+    <div class="cards">
+      <div class="mcard">
+        <div class="mf">Programming</div>
+        <h3>Qwen2.5-Coder 7B</h3>
+        <p>A coding-oriented family. Available variants and quantizations change; compare the model card with your task and runtime.</p>
+        <div class="mrow"><span>7.6B · estimated size</span><span>Requirements to verify</span></div>
+      </div>
+      <div class="mcard">
+        <div class="mf">Reasoning</div>
+        <h3>DeepSeek-R1-Distill-Qwen-7B</h3>
+        <p>A distilled variant of the DeepSeek-R1 family. Quality varies by task and version; check the model's requirements and behavior before using it.</p>
+        <div class="mrow"><span>7.6B · estimated size</span><span>Requirements to verify</span></div>
+      </div>
+      <div class="mcard">
+        <div class="mf">Italian and writing</div>
+        <h3>Qwen2.5 7B Instruct</h3>
+        <p>Instruct model of the Qwen family. It can be used for text and writing; compare Italian quality with prompts representative of your case.</p>
+        <div class="mrow"><span>7.6B · estimated size</span><span>Requirements to verify</span></div>
+      </div>
+      <div class="mcard">
+        <div class="mf">Reading images</div>
+        <h3>Gemma 3 4B</h3>
+        <p>Multimodal variant that can process images with a compatible runtime. Check size, memory, backend, and how the application handles your data.</p>
+        <div class="mrow"><span>4.3B · estimated size</span><span>Compatible runtime</span></div>
+      </div>
+      <div class="mcard">
+        <div class="mf">MoE model</div>
+        <h3>Qwen3 30B-A3B</h3>
+        <p>MoE model with about 3 billion active parameters per token. Loading it still requires memory for the full weights, the runtime, and the context; speed and quality depend on hardware, quantization, and backend. It isn't a universal choice: verify the requirements of the exact variant.</p>
+        <div class="mrow"><span>30.5B · estimated Q4 file: 19 GB</span><span>Needs lots of memory</span></div>
+      </div>
+      <div class="mcard">
+        <div class="mf">Business use</div>
+        <h3>Granite 3.3 2B Instruct</h3>
+        <p>Instruct variant of the Granite family. Features, formats, and terms of use must be checked in the model card and in the license of the specific artifact.</p>
+        <div class="mrow"><span>2.0B · estimated size</span><span>Requirements to verify</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="tabella">
+    <h2>Full table</h2>
+    <p class="desc">All models in the catalog with their technical data. The CPU threshold is an internal heuristic index, not a manufacturer requirement nor a guaranteed speed measurement.</p>
+
+    <div class="tablewrap">
+      <table class="cmp" id="tabModelli">
+        <thead>
+          <tr><th>Model</th><th>Task</th><th>Parameters</th><th>Q4 file</th><th>RAM</th><th>Estimated CPU threshold</th><th>Why choose it</th></tr>
+        </thead>
+        <tbody id="catTabella"></tbody>
+      </table>
+    </div>
+    <div class="nota">The RAM estimate for the models assumes a reference context of 2048 tokens but does not include a universal budget for the OS and applications. Real usage varies: check the free memory on your PC.</div>
+  </section>
+
+  <section class="card" id="licenza">
+    <h2>Licenses and commercial use</h2>
+    <p class="desc">The license can vary across families, versions, and files distributed by third parties. For commercial use, check the terms attached to the specific model and the specific quantization, including any obligations and restrictions.</p>
+    <div class="callout info">
+      <h3>Check the source of the file you download</h3>
+      <p>The model card must state author, license, terms of use, and origin. Don't infer the license from the family name alone or from the app used to download it. If the use matters to a business, keep a copy of the applicable terms and ask for qualified advice when needed.</p>
+    </div>
+  </section>
+
+  <section class="card" id="faq">
+    <h2>Frequently asked questions</h2>
+    <details><summary>What is the best model for 8 GB of RAM?</summary>
+      <p>With 8 GB total, free memory depends on the OS, applications, and context. Small or mid-sized quantized models are a starting point; some 7-8B models can be at the limit. The examples in the catalog are not an up-to-date ranking: verify the file, runtime, and requirements before downloading.</p></details>
+    <details><summary>What's the difference between a 7B and a 14B?</summary>
+      <p>The result varies with the model and the task: more parameters don't guarantee a better answer. A quantized 14B generally needs more memory than a 7B; also consider context, runtime, and operating system. Check the actual size and leave additional room.</p></details>
+    <details><summary>What is Q4_K_M quantization and does it really matter?</summary>
+      <p>Quantization reduces the memory used by the weights compared with higher precisions. Q4_K_M is a common trade-off, but the impact on quality varies by model and task; compare the specific variant. More compressed formats require less memory but can degrade some capabilities more.</p></details>
+    <details><summary>Does a larger model always give better results?</summary>
+      <p>No. Size, quality, and speed don't have a simple relationship: the result depends on the model, task, quantization, and hardware. More parameters often increase memory and time, but quality must be judged on your use case.</p></details>
+    <details><summary>Which model speaks Italian best?</summary>
+      <p>There is no universal winner: language, version, prompt, and task change the results. Qwen, Llama, Gemma, and other families have instruct variants that can reply in Italian; try the available versions with your own requests.</p></details>
+    <details><summary>How do I free memory for a larger model?</summary>
+      <p>Close unneeded applications, shorten the context, and choose a lighter quantization when available. A lightweight operating system can help, but it doesn't guarantee that a model will fit: consider cache, buffers, and real free memory.</p></details>
+    <details><summary>Where do I download them?</summary>
+      <p>From Hugging Face, which is the reference repository, or directly from LM Studio or with an Ollama command. The <a href="../lm-studio-old-pc/">LM Studio configurator</a> shows which format to download for your hardware; if you prefer the terminal and want to serve models to other programs, the guide is on the <a href="../ollama-vs-lm-studio/">Ollama vs LM Studio</a> page.</p></details>
+  </section>
+
+  <nav class="paginv">
+    <a href="../#calcolatore"><b>🖥️ Calculator</b><span>Which models run on your PC</span></a>
+    <a href="../lm-studio-old-pc/"><b>🤖 LM Studio on old PCs</b><span>The settings for using them</span></a>
+    <a href="../linux-old-pcs/"><b>🐧 Linux for old PCs</b><span>Compatibility and installation</span></a>
+    <a href="../ollama-vs-lm-studio/"><b>⚖️ Ollama vs LM Studio</b><span>How to manage them</span></a>
+  </nav>
+</main>
+
+<section class="seo">
+  <h2>How to evaluate a local AI model</h2>
+  <p>To compare models, consider the task, the quality you need, the size of the weights, and the system memory. The file on disk is only part of the requirement: context, cache, runtime, and open applications need additional space.</p>
+  <p>Quantization reduces the memory of the weights and can affect quality. The effect varies from model to model; try the exact version with requests similar to your work. The parameters and estimates on this page are indicative, not benchmarks.</p>
+  <p>A GPU can speed up inference if drivers, backend, and runtime support it. How much of the model can be assigned to VRAM also depends on context and buffers; speed can't be derived from the card's capacity alone.</p>
+  <p>Before downloading or distributing a model, verify source, version, format, requirements, and license of the specific variant.</p>
+</section>
+
+<footer>
+  <div class="fcols">
+    <div>
+      <b>Tools</b>
+      <a href="../#calcolatore">Calculator</a>
+      <a href="../#modelli">AI Models</a>
+      <a href="../#confronto">Compare two PCs</a>
+      <a href="../#linux">Linux distributions</a>
+      <a href="../#passaggi">Steps</a>
+      <a href="../#faq">FAQ</a>
+    </div>
+    <div>
+      <b>Dedicated guides</b>
+      <a href="../lm-studio-old-pc/">LM Studio on old PCs</a>
+      <a href="../linux-old-pcs/">Linux for old PCs</a>
+      <a href="../best-local-ai-models/">Best local AI models</a>
+      <a href="../ollama-vs-lm-studio/">Ollama vs LM Studio</a>
+    </div>
+    <div>
+      <b>Useful links</b>
+      <a href="https://lmstudio.ai/" target="_blank" rel="noopener">LM Studio</a>
+      <a href="https://ollama.com/" target="_blank" rel="noopener">Ollama</a>
+      <a href="https://linuxmint.com/" target="_blank" rel="noopener">Linux Mint</a>
+      <a href="https://huggingface.co/" target="_blank" rel="noopener">Hugging Face</a>
+      <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener">llama.cpp</a>
+    </div>
+    <div>
+      <b>Disclaimer</b>
+      <p>The figures are estimates based on public benchmarks and theoretical memory bandwidth. Real performance varies with quantization, context, and thermal throttling. Always check the license before commercial use.</p>
+    </div>
+  </div>
+  <div class="fbottom">© <span class="annoCorrente">2026</span> Old PC Guide · Trademarks belong to their respective owners. · <a href="../it/migliori-modelli-ai-locali/?lang=it" hreflang="it" lang="it">🇮🇹 Italiano</a></div>
+</footer>
+
+<script src="../db.js?v=12"></script>
+<script src="modelli.js?v=5"></script>
+</body>
+</html>

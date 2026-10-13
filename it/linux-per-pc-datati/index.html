@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+  <script src="/language.js?v=2"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux su PC datati: come scegliere una distribuzione</title>
+<meta name="description" content="Guida a distribuzioni Linux su PC datati: compatibilità di CPU e periferiche, supporto a 32 bit, prova Live e installazione in dual boot.">
+<meta name="theme-color" content="#0d0d12">
+<link rel="canonical" href="https://www.guidapcvecchi.it/it/linux-per-pc-datati/">
+<link rel="alternate" hreflang="it" href="https://www.guidapcvecchi.it/it/linux-per-pc-datati/">
+<link rel="alternate" hreflang="en" href="https://www.guidapcvecchi.it/linux-old-pcs/">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="stylesheet" href="../../style.css?v=10">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Linux su PC datati: come scegliere una distribuzione",
+  "inLanguage": "it",
+  "datePublished": "2026-01-20",
+  "dateModified": "2026-10-08",
+  "author": { "@type": "Organization", "name": "Guida PC Vecchi" },
+  "publisher": { "@type": "Organization", "name": "Guida PC Vecchi" },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.guidapcvecchi.it/it/linux-per-pc-datati/" },
+  "description": "Guida alla scelta e all'installazione di Linux su PC datati, con verifiche di compatibilità, memoria e supporto delle distribuzioni."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Conviene ancora installare Linux su un PC vecchio?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Può convenire se la distribuzione scelta supporta ancora il PC e le sue periferiche. Windows 10 ha terminato il supporto ordinario il 14 ottobre 2025; nell'Area economica europea gli utenti idonei possono aderire agli ESU gratuitamente restando connessi allo stesso account Microsoft, mentre per l'uso con account locale esiste un acquisto una tantum. Il programma termina il 12 ottobre 2027. La compatibilità con Windows 11 si verifica per modello CPU e per gli altri requisiti, non dalla sola generazione." }
+    },
+    {
+      "@type": "Question",
+      "name": "Quale distribuzione Linux usare su un PC con 2 GB di RAM?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Con 2 GB la scelta dipende dalla CPU, dall'uso e dalla versione della distribuzione. Prova un ambiente leggero da USB Live e controlla memoria, rete, audio e driver. Per CPU a 32 bit le opzioni sono più limitate; verifica supporto e compatibilità sul sito ufficiale." }
+    },
+    {
+      "@type": "Question",
+      "name": "Che differenza c'è tra Linux Mint XFCE e Xubuntu?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Mint XFCE e Xubuntu usano il desktop Xfce; Lubuntu usa LXQt. Disponibilità dei driver, requisiti e memoria utilizzata cambiano per versione e hardware. Prova le distribuzioni dalla modalità Live e consulta la documentazione delle release correnti." }
+    },
+    {
+      "@type": "Question",
+      "name": "Come faccio il dual boot senza perdere Windows?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Fai prima un backup e ridimensiona la partizione da Windows, lasciando spazio non allocato sufficiente. Avvia l'installer Linux in modalità corrispondente a quella di Windows (UEFI o BIOS legacy) e segui la procedura della distribuzione. Bootloader e partizioni dipendono dalla modalità firmware; consulta la guida ufficiale prima di confermare le modifiche." }
+    },
+    {
+      "@type": "Question",
+      "name": "Il mio PC del 2012 è a 32 bit: esiste ancora Linux per lui?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Le opzioni a 32 bit sono limitate. Debian 13 non offre più un kernel o un installer i386; Debian 12 è l'ultima release con installazione i386, richiede almeno una CPU i686 e riceve LTS fino al 30 giugno 2028. antiX 26.1 pubblica anche immagini a 32 bit. Verifica sempre istruzioni CPU, aggiornamenti e requisiti correnti. Core 2 e Athlon 64 sono famiglie x86-64, anche se il sistema installato potrebbe essere a 32 bit." }
+    },
+    {
+      "@type": "Question",
+      "name": "Linux su un portatile del 2012 scalda e consuma di più?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Non si può stabilire dal solo sistema operativo: consumo e temperatura dipendono da driver, firmware, carico, batteria e gestione energetica. Prova la distribuzione in modalità Live e confronta i consumi sul tuo computer." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header>
+  <a class="logo" href="../">🖥️ Guida <span>PC Vecchi</span></a>
+  <nav>
+    <a href="../#calcolatore">Calcolatore</a>
+    <a href="../lm-studio-pc-vecchio/">LM Studio</a>
+    <a href="../linux-per-pc-datati/" aria-current="page">Linux</a>
+    <a href="../migliori-modelli-ai-locali/">Modelli AI</a>
+    <a href="../ollama-vs-lm-studio/">Ollama vs LM Studio</a>
+  </nav>
+</header>
+
+<div class="crumbs">
+  <a href="../">Home</a><span>/</span>Linux per PC datati
+</div>
+
+<div class="hero sub">
+  <div class="kicker">Guida completa</div>
+  <h1>Linux su un PC datato: <em>valuta compatibilità e supporto</em></h1>
+  <p>Un computer del 2008-2013 può ancora essere utile, ma la compatibilità dipende da CPU, memoria, periferiche, stato dei componenti e programmi richiesti. Qui trovi opzioni Linux da valutare, controlli prima dell'installazione e indicazioni per provare il sistema senza modificare subito il disco.</p>
+  <div class="meta">
+    <span>Distributive a 32 e 64 bit</span>
+    <span>Prova in modalità Live</span>
+    <span>Test in modalità Live</span>
+  </div>
+</div>
+
+<main>
+  <nav class="toc">
+    <b>In questa pagina</b>
+    <ol>
+      <li><a href="#conviene">Conviene davvero?</a></li>
+      <li><a href="#scegliere">Quale distribuzione scegliere</a></li>
+      <li><a href="#bit32">Attenzione ai 32 bit</a></li>
+      <li><a href="#installare">Installazione passo passo</a></li>
+      <li><a href="#dualboot">Dual boot con cautela</a></li>
+      <li><a href="#driver">Driver e problemi comuni</a></li>
+      <li><a href="#ottimizzare">Dopo: le ottimizzazioni</a></li>
+      <li><a href="#faq">Domande frequenti</a></li>
+    </ol>
+  </nav>
+
+  <section class="card" id="conviene">
+    <h2>Conviene davvero?</h2>
+    <p class="desc">Valuta supporto, periferiche e applicazioni. Prova prima la distribuzione in modalità Live e controlla se soddisfa i tuoi bisogni.</p>
+
+    <div class="proscons">
+      <div class="pc pro">
+        <h3>✅ Perché conviene</h3>
+        <ul>
+          <li><b>Supporto:</b> verifica il periodo di supporto della distribuzione e la compatibilità della CPU per modello; Windows 11 non si valuta dal solo anno</li>
+          <li><b>Memoria:</b> alcune distribuzioni leggere possono lasciare più RAM libera; consumo e differenza dipendono da versione, desktop, driver e servizi</li>
+          <li><b>Compatibilità:</b> prova rete, audio, grafica e periferiche da una USB Live prima di installare</li>
+          <li><b>Privacy:</b> politiche e telemetria dipendono dalla distribuzione e dalle applicazioni installate</li>
+          <li><b>Software libero:</b> nessuna licenza, nessun account Microsoft obbligatorio</li>
+        </ul>
+      </div>
+      <div class="pc con">
+        <h3>❌ Quando ripensarci</h3>
+        <ul>
+          <li>Programmi professionali specifici per Windows (AutoCAD, Photoshop vecchio, alcuni software di contabilità)</li>
+          <li>Giochi con protezione anti-cheat</li>
+          <li>Stampanti o scanner molto vecchi senza driver Linux</li>
+          <li>Memoria molto limitata: controlla i requisiti della release e prova le applicazioni necessarie</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout ok">
+      <h3>Il test che elimina ogni dubbio</h3>
+      <p>Scarica una release supportata, crea una USB avviabile con <a href="https://rufus.ie/" target="_blank" rel="noopener">Rufus</a> e avvia il PC nella modalità firmware corretta. La modalità Live permette di provare rete, audio, grafica, sospensione e periferiche senza installare, ma non verifica ogni caso d’uso: controlla anche applicazioni, compatibilità e backup prima di procedere.</p>
+    </div>
+  </section>
+
+  <section class="card" id="scegliere">
+    <h2>Quale distribuzione scegliere</h2>
+    <p class="desc">Non esiste una distribuzione migliore in assoluto: esiste quella giusta per la tua RAM e per il tuo processore. Scegli qui sotto cosa hai e leggi il verdetto.</p>
+
+    <div class="minitool">
+      <div class="grid3">
+        <div class="field">
+          <label for="lxRam">RAM</label>
+          <select id="lxRam"></select>
+        </div>
+        <div class="field">
+          <label for="lxCpu">Processore</label>
+          <select id="lxCpu"></select>
+        </div>
+        <div class="field">
+          <label for="lxUso">Come lo userai</label>
+          <select id="lxUso">
+            <option value="navigare">Navigare, scrivere, email</option>
+            <option value="ai">Far girare modelli AI in locale</option>
+            <option value="scuola">Scuola, ufficio, programmazione</option>
+            <option value="server">Server di casa, sempre acceso</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="lxWin">Windows da tenere?</label>
+          <select id="lxWin">
+            <option value="no">No, lo sostituisco</option>
+            <option value="si" selected>Sì, voglio il dual boot</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="lxPortatile">È un portatile?</label>
+          <select id="lxPortatile">
+            <option value="no">No, desktop</option>
+            <option value="si" selected>Sì, portatile</option>
+          </select>
+        </div>
+      </div>
+      <div class="row-btn">
+        <button class="btn" onclick="lxScegli()">🐧 Dimmi quale scegliere</button>
+        <button class="btn ghost" onclick="lxAzzera()">Azzera</button>
+      </div>
+    </div>
+
+    <div id="lxEsito"></div>
+  </section>
+
+  <section class="card" id="bit32">
+    <h2>Attenzione ai 32 bit</h2>
+    <p class="desc">Distingui l'architettura supportata dalla CPU da quella del sistema già installato. Controlla il modello esatto e scegli una ISO ancora supportata, a 32 o 64 bit.</p>
+
+    <div class="tablewrap">
+      <table class="cmp">
+        <thead>
+          <tr><th>Processore</th><th>Anno</th><th>Architettura</th><th>Cosa installare</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Pentium 4 Northwood, Atom N270</td><td class="num">2003-2008</td><td><span class="b no">32 bit</span></td><td>Verifica una release 32 bit supportata</td></tr>
+          <tr><td>Celeron D / Pentium 4 Prescott</td><td class="num">variabile</td><td><span class="b mid">verificare il modello</span></td><td>Controlla se la CPU supporta x86-64</td></tr>
+          <tr><td>Athlon XP</td><td class="num">2003-2005</td><td><span class="b no">32 bit</span></td><td>Verifica una release 32 bit supportata</td></tr>
+          <tr><td>Sempron</td><td class="num">variabile</td><td><span class="b mid">verificare il modello</span></td><td>Controlla se la CPU supporta x86-64</td></tr>
+          <tr><td>Core 2 Duo / Quad, Pentium Dual-Core, Celeron E3300</td><td class="num">2006-2009</td><td><span class="b ok">64 bit</span></td><td class="c-vinc">Prova una release x86-64 supportata</td></tr>
+          <tr><td>Athlon 64 X2, Athlon 64, Athlon II, Phenom II</td><td class="num">2004-2009</td><td><span class="b ok">64 bit</span></td><td class="c-vinc">Prova una release x86-64 supportata</td></tr>
+          <tr><td>Core i3/i5/i7 (Nehalem in poi)</td><td class="num">2008+</td><td><span class="b ok">64 bit</span></td><td class="c-vinc">Una release x86-64 i cui requisiti includano quel processore</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout attenzione">
+      <h3>Perché le distribuzioni moderne hanno abbandonato i 32 bit</h3>
+      <p>Le opzioni installabili a 32 bit sono limitate. Debian 13 non include un kernel o un installer i386; Debian 12 conserva l'installazione i386 con LTS fino al <b>30 giugno 2028</b> e richiede una CPU almeno i686. antiX 26.1 pubblica immagini a 32 bit. Controlla le istruzioni CPU, la release e gli aggiornamenti sui siti ufficiali; per uso online verifica anche che browser e applicazioni ricevano patch.</p>
+    </div>
+  </section>
+
+  <section class="card" id="installare">
+    <h2>Installazione passo passo</h2>
+    <ol class="steps">
+      <li><b>Backup dei tuoi dati</b>
+        <div class="sm">Copia documenti, foto e segnalibri su un disco esterno. È il passo che tutti saltano e che nessuno rimpiange di aver fatto.</div></li>
+      <li><b>Scarica la ISO</b>
+        <div class="sm">Dal sito ufficiale scegli l'architettura supportata dalla CPU. L'anno e il nome commerciale non bastano per distinguere tutti i modelli: controlla il modello preciso o verifica con <code>lscpu</code>.</div></li>
+      <li><b>Scrivi la USB con Rufus</b>
+        <div class="sm">Inserisci una USB adeguata alla ISO, apri <a href="https://rufus.ie/" target="_blank" rel="noopener">Rufus</a>, seleziona la ISO e avvia. Avvia la USB nella stessa modalità firmware usata da Windows (UEFI o BIOS legacy); schema di partizione e bootloader dipendono dalla configurazione del PC e della distribuzione.</div></li>
+      <li><b>Prova in modalità Live</b>
+        <div class="sm">Riavvia con la USB inserita e scegli la prima voce che la avvia. Prova rete, audio, video, trackpad e la luminosità dello schermo. Se le prove funzionano, verifica comunque i requisiti e il backup prima di installare.</div></li>
+      <li><b>Installa</b>
+        <div class="sm">Se non ti serve Windows scegli «Cancella disco e installa» solo dopo aver verificato il backup. Altrimenti ridimensiona da Windows usando gli strumenti del sistema e segui la procedura ufficiale della distribuzione; spazio necessario e bootloader dipendono dalla configurazione.</div></li>
+      <li><b>Riavvia e aggiorna</b>
+        <div class="sm">Dopo il primo avvio esegui <code>sudo apt update &amp;&amp; sudo apt full-upgrade</code>. La durata degli aggiornamenti dipende da rete, disco, CPU e quantità di pacchetti.</div></li>
+      <li><b>Verifica i driver grafici</b>
+        <div class="sm">Dopo l'installazione controlla la documentazione della distribuzione e gli strumenti per i driver aggiuntivi. Disponibilità e procedura variano in base a GPU, versione e sistema.</div></li>
+    </ol>
+  </section>
+
+  <section class="card" id="dualboot">
+    <h2>Dual boot con cautela</h2>
+    <p class="desc">Tenere Windows e Linux sulla stessa macchina è pratico, ma ci sono due regole da rispettare per non ritrovarsi con un computer che non parte più.</p>
+
+    <div class="callout errore">
+      <h3>La regola che conta</h3>
+      <p><b>Fai un backup e libera spazio da Windows.</b> Se vuoi mantenere Windows, usa Gestione disco per ridimensionare la partizione e lascia spazio non allocato. La quantità richiesta varia con distribuzione, applicazioni e dati: controlla i requisiti della release. Non formattare lo spazio prima dell'installer.</p>
+    </div>
+
+    <ol class="steps">
+      <li><b>Libera spazio da Windows</b><div class="sm">La quantità necessaria dipende dalla distribuzione e dall'uso previsto. Controlla i requisiti ufficiali e lascia ulteriore margine per aggiornamenti e file personali.</div></li>
+      <li><b>Segui l'installer della distribuzione</b><div class="sm">L'opzione per installare accanto a Windows e la gestione di partizioni e bootloader cambiano fra distribuzioni e modalità UEFI/legacy. Leggi il riepilogo delle modifiche prima di confermare.</div></li>
+      <li><b>Riavvia e verifica</b><div class="sm">Controlla che entrambi i sistemi partano. Se il menu non appare, segui la guida ufficiale della distribuzione per la modalità firmware e il bootloader in uso.</div></li>
+      <li><b>Ricorda il limite della RAM</b><div class="sm">Il dual boot non divide la RAM: il sistema avviato usa le risorse disponibili. Per l’AI controlla i requisiti del runtime e del modello dopo aver avviato il sistema scelto.</div></li>
+    </ol>
+  </section>
+
+  <section class="card" id="driver">
+    <h2>Driver e problemi comuni</h2>
+    <details><summary>La modalità Live si blocca o lo schermo resta nero</summary>
+      <p>Controlla l'ordine di avvio e scegli la voce USB dal menu firmware, che spesso si apre con Esc, F2, F10 o F12 secondo il produttore. Avvia la USB nella modalità compatibile con il sistema installato (UEFI o legacy). Disattiva Secure Boot solo se la documentazione della distribuzione o un messaggio d'errore lo richiede; evita di cambiare schema partizione senza sapere come è avviato Windows.</p></details>
+    <details><summary>Il Wi-Fi non funziona</summary>
+      <p>Il supporto dipende dal modello del chipset e dalla distribuzione. Identifica il dispositivo e consulta la documentazione ufficiale della distro; i «Driver aggiuntivi» mostrano solo i driver disponibili per quel PC. Se non riesci a collegarti, prova temporaneamente un cavo Ethernet o il tethering USB del telefono.</p></details>
+    <details><summary>La ventola fa rumore e il PC scalda</summary>
+      <p>Un carico elevato, polvere, ventole o batteria possono incidere. Controlla temperature e processi; se la pulizia richiede di aprire il portatile o intervenire sulla pasta termica, segui il manuale di servizio o rivolgiti a una persona esperta.</p></details>
+    <details><summary>Il portatile si scarica più in fretta</summary>
+      <p>L'autonomia varia con driver, firmware, kernel, batteria e carico. Prova la modalità Live, confronta consumi e sospensione e consulta la documentazione della distribuzione prima di cambiare le impostazioni energetiche.</p></details>
+    <details><summary>«Out of memory» o il sistema si blocca durante gli aggiornamenti</summary>
+      <p>Con poca RAM, un aggiornamento o un browser può mettere sotto pressione il sistema. Chiudi le applicazioni non necessarie, misura l’uso di memoria e consulta la documentazione della distribuzione prima di configurare zram o swap.</p></details>
+    <details><summary>Come si disinstalla Linux?</summary>
+      <p>La rimozione dipende da UEFI/legacy e da come è stato installato il bootloader. Prima fai un backup e consulta la procedura Microsoft e quella della distribuzione per ripristinare l'avvio di Windows; solo dopo elimina le partizioni Linux da Gestione disco. Non eseguire comandi di ripristino generici senza identificare le partizioni corrette.</p></details>
+  </section>
+
+  <section class="card" id="ottimizzare">
+    <h2>Dopo l'installazione: le ottimizzazioni</h2>
+    <p class="desc">Cinque interventi banali che su un PC datato valgono più di qualunque distribuzione scelta.</p>
+
+    <div class="callout ok">
+      <h3>1. Metti un SSD</h3>
+      <p>Un SSD può migliorare l'avvio e l'apertura dei programmi rispetto a un HDD, ma i tempi dipendono da PC, interfaccia, sistema e stato del disco. Verifica formato e collegamento supportati dalla scheda madre.</p>
+    </div>
+    <div class="callout ok">
+      <h3>2. Aggiungi RAM</h3>
+      <p>Più RAM può aiutare con multitasking e modelli locali, se la scheda madre la supporta. Controlla tipo, capacità massima, numero di slot e configurazione compatibile; prezzi e disponibilità cambiano.</p>
+    </div>
+    <div class="callout ok">
+      <h3>3. Controlla che la memoria sia in dual channel</h3>
+      <p>Due moduli correttamente installati possono abilitare il dual channel sulle piattaforme che lo supportano e aumentare la banda teorica. Il guadagno reale varia con processore, memoria e carico; non equivale necessariamente al doppio.</p>
+    </div>
+    <div class="callout ok">
+      <h3>4. Installa zram al posto dello swap su disco</h3>
+      <p>La zram può offrire spazio di swap compresso e aiutare in alcune situazioni di pressione sulla memoria; non aumenta la RAM fisica e può ridurre le prestazioni sotto carico. Consulta la documentazione della distribuzione e verifica la configurazione prima di aggiungerla.</p>
+    </div>
+    <div class="callout ok">
+      <h3>5. Riduci i servizi non necessari</h3>
+      <p>Su un PC datato ogni servizio in avvio automatico pesa. Su Ubuntu e derivate:<br>
+      Controlla le impostazioni di avvio della distribuzione e disattiva un servizio solo se ne conosci la funzione e hai verificato che non sia usato da applicazioni o periferiche.</p>
+    </div>
+  </section>
+
+  <section class="card" id="faq">
+    <h2>Domande frequenti</h2>
+    <details><summary>Conviene ancora installare Linux su un PC vecchio?</summary>
+      <p>Può convenire se la distribuzione scelta supporta ancora il PC e le sue periferiche. Windows 10 ha terminato il supporto ordinario il 14 ottobre 2025; nell'Area economica europea gli utenti idonei possono aderire agli ESU gratuitamente restando connessi allo stesso account Microsoft, mentre per un account locale esiste un acquisto una tantum, fino al 12 ottobre 2027. La compatibilità con Windows 11 si verifica per modello CPU e per gli altri requisiti. Consumo di RAM e tempi di avvio dipendono dalla configurazione.</p></details>
+    <details><summary>Quale distribuzione uso con 2 GB di RAM?</summary>
+      <p>Con 2 GB la scelta dipende dalla CPU e dai programmi. Prova un desktop leggero in modalità Live; per CPU a 32 bit controlla quali release sono ancora supportate. Evita di scegliere basandoti solo sul consumo dichiarato a riposo.</p></details>
+    <details><summary>Linux Mint XFce o Xubuntu?</summary>
+      <p>Linux Mint XFCE e Xubuntu usano Xfce; Lubuntu usa LXQt. Release, supporto, driver e compatibilità hardware differiscono: prova la versione corrente in modalità Live e consulta i requisiti ufficiali, soprattutto per GPU e periferiche datate.</p></details>
+    <details><summary>Come faccio il dual boot senza perdere Windows?</summary>
+      <p>Fai prima un backup e ridimensiona la partizione da Windows, lasciando spazio non allocato sufficiente. Avvia l'installer Linux nella stessa modalità firmware usata da Windows (UEFI o BIOS legacy) e segui le istruzioni della distribuzione. Bootloader e partizioni dipendono dalla modalità di avvio; consulta la guida ufficiale prima di confermare le modifiche.</p></details>
+    <details><summary>Il mio PC del 2012 è a 32 bit?</summary>
+      <p>Controlla il modello preciso della CPU. Su Linux <code>lscpu</code> mostra le modalità operative supportate; su Windows cerca il modello completo sul sito del produttore. Alcuni nomi, come Celeron D o Pentium 4, includono revisioni diverse.</p></details>
+    <details><summary>Linux consuma meno di Windows?</summary>
+      <p>Dipende da driver, firmware, carico, batteria e distribuzione. Prova la modalità Live e confronta autonomia e temperatura sul tuo computer; se la ventola è rumorosa, verifica anche lo stato del raffreddamento.</p></details>
+  </section>
+
+  <nav class="paginv">
+    <a href="../lm-studio-pc-vecchio/"><b>🤖 LM Studio su PC vecchio</b><span>Cosa serve davvero per l'AI locale</span></a>
+    <a href="../migliori-modelli-ai-locali/"><b>📚 Migliori modelli AI</b><span>Cosa installare dopo Linux</span></a>
+    <a href="../ollama-vs-lm-studio/"><b>⚖️ Ollama vs LM Studio</b><span>Due strumenti a confronto</span></a>
+    <a href="../#calcolatore"><b>🖥️ Calcolatore</b><span>Il verdetto completo sul tuo PC</span></a>
+  </nav>
+</main>
+
+<section class="seo">
+  <h2>Come valutare Linux su un PC datato</h2>
+  <p>Windows 10 ha terminato il supporto ordinario il <b>14 ottobre 2025</b>. Nell'Area economica europea gli utenti idonei possono aderire agli ESU senza costo aggiuntivo restando connessi allo stesso account Microsoft; per l'uso con un account locale è disponibile un acquisto una tantum, fino al <b>12 ottobre 2027</b>. La compatibilità con Windows 11 dipende dal modello esatto della CPU e da requisiti come TPM 2.0, firmware UEFI con Secure Boot, memoria e spazio su disco. Verifica i requisiti ufficiali e usa Controllo integrità PC: anno e generazione della CPU non sono sufficienti.</p>
+  <p>Il supporto Linux dipende dalla distribuzione, dalla release e dai driver disponibili; non è garantito su ogni PC o architettura. Le opzioni a 32 bit sono particolarmente limitate: Debian 13 non include un kernel o installer i386, mentre Debian 12 i386 richiede una CPU almeno i686 e riceve LTS fino al 30 giugno 2028. antiX 26.1 pubblica immagini a 32 bit. Controlla i dettagli sui siti ufficiali prima dell'installazione.</p>
+  <p>Un desktop Linux leggero può lasciare più memoria libera in alcune configurazioni, ma il consumo varia con versione, servizi, driver e programmi aperti. La memoria richiesta da un modello dipende da pesi, quantizzazione, cache e contesto; un modello da 14B non entra necessariamente in un PC con 8 GB. Controlla memoria libera e requisiti effettivi del runtime.</p>
+  <p>Linux offre strumenti e modalità di aggiornamento diversi da Windows, ma durata e facilità di ripristino dipendono dalla distribuzione e dalla configurazione. Prima di sostituire il sistema, prova modalità Live, crea un backup e controlla che applicazioni e periferiche essenziali funzionino.</p>
+  <p>Linux può essere una buona scelta quando la distribuzione supporta il PC e le applicazioni necessarie. Se dipendi da software o periferiche disponibili solo su Windows, considera il dual boot o mantieni il sistema esistente. L’esecuzione di LM Studio o Ollama ha requisiti specifici da verificare per CPU, GPU e versione del runtime.</p>
+</section>
+
+<footer>
+  <div class="fcols">
+    <div>
+      <b>Strumenti</b>
+      <a href="../#calcolatore">Calcolatore</a>
+      <a href="../#modelli">Modelli AI</a>
+      <a href="../#confronto">Confronta due PC</a>
+      <a href="../#linux">Distribuzioni Linux</a>
+      <a href="../#passaggi">Passaggi</a>
+      <a href="../#faq">FAQ</a>
+    </div>
+    <div>
+      <b>Guide dedicate</b>
+      <a href="../lm-studio-pc-vecchio/">LM Studio su PC vecchio</a>
+      <a href="../linux-per-pc-datati/">Linux per PC datati</a>
+      <a href="../migliori-modelli-ai-locali/">Migliori modelli AI locali</a>
+      <a href="../ollama-vs-lm-studio/">Ollama vs LM Studio</a>
+    </div>
+    <div>
+      <b>Link utili</b>
+      <a href="https://lmstudio.ai/" target="_blank" rel="noopener">LM Studio</a>
+      <a href="https://ollama.com/" target="_blank" rel="noopener">Ollama</a>
+      <a href="https://linuxmint.com/" target="_blank" rel="noopener">Linux Mint</a>
+      <a href="https://huggingface.co/" target="_blank" rel="noopener">Hugging Face</a>
+      <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener">llama.cpp</a>
+      <a href="https://toolkitgratis.com/" target="_blank" rel="noopener">ToolKit Gratis</a>
+    </div>
+    <div>
+      <b>Disclaimer</b>
+      <p>I punteggi sono stime indicative basate su parametri pubblici. I requisiti delle distribuzioni possono cambiare: verifica sempre sul sito ufficiale prima di installare.</p>
+    </div>
+  </div>
+  <div class="fbottom">© <span class="annoCorrente">2026</span> Guida PC Vecchi · Le marche citate appartengono ai rispettivi proprietari. · <a href="../../linux-old-pcs/?lang=en" hreflang="en" lang="en">🇬🇧 English</a></div>
+</footer>
+
+<script src="../db.js?v=12"></script>
+<script src="linux.js?v=2"></script>
+</body>
+</html>

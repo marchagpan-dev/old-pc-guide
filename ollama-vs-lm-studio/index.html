@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+  <script src="/language.js?v=2"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ollama vs LM Studio: Which One to Choose on an Old PC — Old PC Guide</title>
+<meta name="description" content="Ollama or LM Studio? Comparison of interface, API, requirements, memory and local use of Ollama and LM Studio. Includes the curl command for using Ollama from other programs and a guide to port 11434.">
+<meta name="theme-color" content="#0d0d12">
+<link rel="canonical" href="https://www.guidapcvecchi.it/ollama-vs-lm-studio/">
+<link rel="alternate" hreflang="it" href="https://www.guidapcvecchi.it/it/ollama-vs-lm-studio/">
+<link rel="alternate" hreflang="en" href="https://www.guidapcvecchi.it/ollama-vs-lm-studio/">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="../style.css?v=10">
+</head>
+<body>
+<header>
+  <a class="logo" href="../">🖥️ Old <span>PC Guide</span></a>
+  <nav>
+    <a href="../#calcolatore">Calculator</a>
+    <a href="../lm-studio-old-pc/">LM Studio</a>
+    <a href="../linux-old-pcs/">Linux</a>
+    <a href="../best-local-ai-models/">AI Models</a>
+    <a href="../ollama-vs-lm-studio/" aria-current="page">Ollama vs LM Studio</a>
+  </nav>
+</header>
+
+<div class="crumbs">
+  <a href="../">Home</a><span>/</span>Ollama vs LM Studio
+</div>
+
+<div class="hero sub">
+  <div class="kicker">Comparison</div>
+  <h1>Ollama vs LM Studio: <em>which one for your old PC</em></h1>
+  <p>LM Studio and Ollama let you run AI models locally with different interfaces and workflows. Here you will find a feature comparison, a rough estimate for your hardware, and directions for connecting other programs to Ollama.</p>
+  <div class="meta">
+    <span>2 tools compared</span>
+    <span>API and code included</span>
+    <span>No registration</span>
+  </div>
+</div>
+
+<main>
+  <nav class="toc">
+    <b>On this page</b>
+    <ol>
+      <li><a href="#confronto">Line-by-line comparison</a></li>
+      <li><a href="#scegli">Which of the two for your PC</a></li>
+      <li><a href="#installa">Step-by-step installation</a></li>
+      <li><a href="#api">Using Ollama from other programs</a></li>
+      <li><a href="#multipc">One model, two PCs</a></li>
+      <li><a href="#problemi">Common problems</a></li>
+      <li><a href="#faq">Frequently asked questions</a></li>
+    </ol>
+  </nav>
+
+  <section class="card" id="confronto">
+    <h2>Line-by-line comparison</h2>
+    <p class="desc">No absolute winner: it changes based on how much memory you have and what you need. The "on old PC" column is the only one that matters for those here.</p>
+
+    <div class="tablewrap">
+      <table class="cmp">
+        <thead>
+          <tr><th>Feature</th><th>LM Studio</th><th>Ollama</th><th>On old PC</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>App RAM</b></td><td>Varies with version, system and session</td><td>Varies with version, system and session</td><td>Measure the memory on your PC</td></tr>
+          <tr><td><b>Model in memory after use</b></td><td>Depends on the settings and the session</td><td>Depends on <code>keep_alive</code> and the settings</td><td>You can unload inactive models</td></tr>
+          <tr><td><b>Graphical interface</b></td><td>Yes, for searching and managing models</td><td>Mainly terminal-based; third-party interfaces exist</td><td>LM Studio is more immediate for interactive use</td></tr>
+          <tr><td><b>Installation</b></td><td>Wizard on the supported platforms</td><td>Installer or terminal procedure, depending on the system</td><td>Follow the official guide for your version</td></tr>
+          <tr><td><b>API for other programs</b></td><td>Local server with OpenAI-compatible API</td><td>Own HTTP API with OpenAI compatibility available</td><td>Check the format expected by the application</td></tr>
+          <tr><td><b>Model library</b></td><td>Catalog and supported formats vary</td><td>Catalog of models and tags updated over time</td><td>Check model, quantization and requirements</td></tr>
+          <tr><td><b>Speed</b></td><td>Depends on runtime, backend, model and hardware</td><td>Depends on runtime, backend, model and hardware</td><td>They are not guaranteed to be equal</td></tr>
+          <tr><td><b>Disk space</b></td><td>App and models take up variable space</td><td>Program and models take up variable space</td><td>Consider the model files separately</td></tr>
+          <tr><td><b>Use without a graphical interface</b></td><td>Check the modes available in the current version</td><td>Terminal use and local service</td><td>Both can expose a local server</td></tr>
+          <tr><td><b>Access from other PCs</b></td><td>Network configuration to be verified</td><td>Configurable with <code>OLLAMA_HOST</code></td><td>Limit access to the trusted network</td></tr>
+          <tr><td><b>Model startup and unloading</b></td><td>Depends on the session settings</td><td>Depends on <code>keep_alive</code> and the commands used</td><td>Check active models and settings</td></tr>
+          <tr><td><b>CPU compatibility</b></td><td>Windows x64 lists AVX2; the Linux x64 package includes it by default</td><td>Runner and required instructions vary by build</td><td>Check the runtime requirements</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout info">
+      <h3>Memory depends on usage and settings</h3>
+      <p>Consumption cannot be summarized in a single number: it changes with system, session and model. Even how long a model stays loaded depends on the settings. In Ollama you can check the active models with <code>ollama ps</code> and unload one with <code>ollama stop nome-modello</code>; for LM Studio, check the unload options in the installed version. The amount of free RAM on your PC is more useful than a generic measure of the application.</p>
+    </div>
+  </section>
+
+  <section class="card" id="scegli">
+    <h2>Which of the two for your PC</h2>
+    <p class="desc">Select your hardware and the answer takes into account the memory you actually have, not the generic rule.</p>
+
+    <div class="minitool">
+      <div class="grid3">
+        <div class="field">
+          <label for="oRam">Installed RAM</label>
+          <select id="oRam"></select>
+        </div>
+        <div class="field">
+          <label for="oCpu">Processor</label>
+          <select id="oCpu"></select>
+        </div>
+        <div class="field">
+          <label for="oGpu">Graphics card</label>
+          <select id="oGpu"></select>
+        </div>
+        <div class="field">
+          <label for="oSo">Operating system</label>
+          <select id="oSo">
+            <option value="win" selected>Windows</option>
+            <option value="linux">Linux</option>
+            <option value="mac">macOS (Apple Silicon)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="oUso">What you want to do with it</label>
+          <select id="oUso">
+            <option value="chat" selected>Chat and write</option>
+            <option value="api">Connect other programs</option>
+            <option value="server">Serve models to the PCs at home</option>
+            <option value="prova">Try it without commitment</option>
+          </select>
+        </div>
+      </div>
+      <div class="row-btn">
+        <button class="btn" onclick="ovScegli()">⚖️ Tell me which to choose</button>
+        <button class="btn ghost" onclick="ovAzzera()">Reset</button>
+      </div>
+    </div>
+
+    <div id="ovEsito"></div>
+  </section>
+
+  <section class="card" id="installa">
+    <h2>Step-by-step installation</h2>
+    <p class="desc">Basic steps and links to the official documentation. Requirements and installation options can change by system and version.</p>
+
+    <h3>LM Studio</h3>
+    <ol class="steps">
+      <li>Download the version for your system from <a href="https://lmstudio.ai/download" target="_blank" rel="noopener">lmstudio.ai/download</a> and check the published requirements.</li>
+      <li>Install with the default settings. On first launch choose the "My Documents" mode only if the system disk is almost full: the models are large.</li>
+      <li>Look for a model suited to your RAM and your use; the download size and the time depend on the variant and the connection.</li>
+      <li>In the menu on the left open "Local Server" and press Start. LM Studio exposes a server compatible with the OpenAI APIs on <code>localhost:1234</code>: any program that accepts an OpenAI endpoint can use it.</li>
+      <li>Start the model with a context suited to the available memory and check the RAM usage during a test.</li>
+    </ol>
+
+    <h3>Ollama</h3>
+    <ol class="steps">
+      <li><b>Windows or macOS:</b> download <code>OllamaSetup.exe</code> from <a href="https://ollama.com/download" target="_blank" rel="noopener">ollama.com/download</a> and install it. On Windows it becomes a background application with an icon in the status bar.</li>
+      <li><b>Linux:</b> a single command, which installs the binary and creates the system service:
+<pre><code>curl -fsSL https://ollama.com/install.sh | sh
+sudo systemctl enable --now ollama</code></pre></li>
+      <li>Download and start a model with a command:
+<pre><code>ollama run qwen2.5:7b</code></pre>
+      <li>For everyday use it is better to preload the model without starting it: <code>ollama pull qwen2.5:7b</code>. That way the next startup is immediate.</li>
+      <li>List the installed models with <code>ollama list</code> and delete one you do not use with <code>ollama rm nome-modello</code>: every model takes gigabytes that do not come back.</li>
+    </ol>
+
+    <div class="callout attenzione">
+      <h3>Windows 7 is not supported</h3>
+      <p>Operating system requirements change with versions. Check the official pages of <a href="https://lmstudio.ai/docs/app/system-requirements" target="_blank" rel="noopener">LM Studio</a> and <a href="https://ollama.com/download" target="_blank" rel="noopener">Ollama</a> before installing. On an old PC, Linux can be an alternative only if the distribution, the drivers and the runtime support that CPU model; RAM consumption depends on the configuration.</p>
+    </div>
+  </section>
+
+  <section class="card" id="api">
+    <h2>Using Ollama from other programs</h2>
+    <p class="desc">This is the main reason people choose Ollama: a local model becomes usable from any program, even one written in any language, without an account or costs.</p>
+
+    <h3>The minimal command</h3>
+    <p>Ollama listens on port <b>11434</b> of the <code>localhost</code> address. The simplest request is made with <code>curl</code>:</p>
+
+<pre><code>curl http://localhost:11434/api/chat \
+  -d '{
+    "model": "qwen2.5:7b",
+    "messages": [{"role": "user", "content": "Riassumi il teorema di Bayes in tre righe"}],
+    "stream": false
+  }'</code></pre>
+
+    <p>With <code>"stream": false</code> you receive a single JSON block when the model has finished. With <code>true</code>, which is the default, you receive one piece of the response at a time, exactly like in a chat: for a web interface that is what you need.</p>
+
+    <h3>OpenAI-compatible endpoints</h3>
+    <p>Ollama also exposes a <code>/v1</code> path compatible with some OpenAI APIs. Check the parameters supported by your program and do not expose the port to the Internet: limit access to the trusted local network or add an appropriate authentication layer.</p>
+
+    <div class="tablewrap">
+      <table class="cmp">
+        <thead>
+          <tr><th>What you want</th><th>Endpoint</th><th>Model</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Chat, Ollama format</td><td class="num"><code>POST /api/chat</code></td><td class="num"><code>qwen2.5:7b</code></td></tr>
+          <tr><td>Text completion</td><td class="num"><code>POST /api/generate</code></td><td class="num"><code>qwen2.5:7b</code></td></tr>
+          <tr><td>Chat, OpenAI format</td><td class="num"><code>POST /v1/chat/completions</code></td><td class="num"><code>qwen2.5:7b</code></td></tr>
+          <tr><td>Available models</td><td class="num"><code>GET /api/tags</code></td><td class="num">—</td></tr>
+          <tr><td>Model information</td><td class="num"><code>GET /api/show</code></td><td class="num"><code>qwen2.5:7b</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Python example</h3>
+    <p>With the official <code>ollama</code> library the request is three lines:</p>
+
+<pre><code>import ollama
+
+risposta = ollama.chat(
+    model="qwen2.5:7b",
+    messages=[{"role": "user", "content": "Ciao, chi sei?"}]
+)
+print(risposta["message"]["content"])</code></pre>
+
+    <h3>Confirming it works</h3>
+    <p>The quickest test to understand whether the service is running, with a command that works on Windows, Linux and macOS:</p>
+
+<pre><code>curl http://localhost:11434/api/tags</code></pre>
+
+    <p>If it replies with a JSON that lists the models you downloaded, everything is in order. If you get a connection error, the service is not running: on Linux check with <code>systemctl status ollama</code>.</p>
+
+    <div class="callout ok">
+      <h3>LM Studio does the same thing</h3>
+      <p>LM Studio also has a local server: you activate it from the "Local Server" menu and it listens on port <b>1234</b>, not 11434. The difference is that its server is designed for interactive use and must be started by hand at every session, while the Ollama server is a service that starts with the system. If a program asks you for the port, try <code>1234</code> with LM Studio and <code>11434</code> with Ollama.</p>
+    </div>
+  </section>
+
+  <section class="card" id="multipc">
+    <h2>One model, two PCs</h2>
+    <p class="desc">In a home with more than one computer, the old PC is not there to run models: it is there to act as a server for the others. It is a use that works even on 2012 hardware.</p>
+
+    <p>Ollama is designed for this: just expose it on the local network and every PC in the house will be able to ask it for answers. The model runs only once, on a single machine, and the others take advantage of it.</p>
+
+    <ol class="steps">
+      <li><b>Choose the machine that hosts the model.</b> Better a mini PC or a laptop with 16 GB and even a modest GPU: the GPU matters because inference is tied to memory bandwidth.</li>
+      <li><b>Make it reachable from the other PCs.</b> On macOS and Windows the setting is in the application options. On Linux, by default restricted to localhost, you must expose it explicitly:
+<pre><code>sudo systemctl edit ollama
+
+[Service]
+Environment="OLLAMA_HOST=0.0.0.0:11434"</code></pre>
+      then <code>sudo systemctl daemon-reload &amp;&amp; sudo systemctl restart ollama</code>.</li>
+      <li><b>Open the port in the firewall</b> only on the local network, never on the Internet:
+<pre><code>sudo ufw allow from 192.168.1.0/24 to any port 11434</code></pre></li>
+      <li><b>Give the other PCs the address</b> of the machine that hosts the model: if its IP is <code>192.168.1.50</code>, the other programs will use <code>http://192.168.1.50:11434/v1</code>.</li>
+    </ol>
+
+    <div class="callout attenzione">
+      <h3>Never expose the port on the Internet</h3>
+      <p>Ollama has no authentication: whoever reaches the port can use your model without limits and without you knowing. Exposing it on a public network or forwarding the port on the router is the easiest way to give free access to your GB of model to anyone who passes by. If you really need access from outside the house, put a reverse proxy with authentication in front, or use a tunnel with authentication.</p>
+    </div>
+  </section>
+
+  <section class="card" id="problemi">
+    <h2>Common problems</h2>
+    <p class="desc">Four errors you run into almost always, with the real cause and the solution.</p>
+
+    <div class="cards">
+      <div class="mcard">
+        <div class="mf">Error</div>
+        <h3>"connection refused" on port 11434</h3>
+        <p>The service is not running. On Linux: <code>systemctl start ollama</code>. If the problem persists even after startup, a firewall or an antivirus is blocking the port. On Windows, verify that Ollama is started from the icon in the status bar, not just installed.</p>
+      </div>
+      <div class="mcard">
+        <div class="mf">Error</div>
+        <h3>"not found, try pulling it first"</h3>
+        <p>The requested model is not local. Check the available names with <code>ollama list</code> and in the <a href="https://ollama.com/library" target="_blank" rel="noopener">official library</a>; before downloading, verify the size, the quantization and the indicated size for the chosen tag.</p>
+      </div>
+      <div class="mcard">
+        <div class="mf">Error</div>
+        <h3>The model freezes or goes into swap</h3>
+        <p>Compare free RAM, weight size, context cache and runtime requirements. Try a shorter context or a smaller model. VRAM can help only when the runtime, the drivers and the backend support the GPU; even with 8 GB it is not guaranteed that a 7B model fits entirely.</p>
+      </div>
+      <div class="mcard">
+        <div class="mf">Error</div>
+        <h3>The model is slow or does not use the GPU</h3>
+        <p>Check with <code>ollama ps</code> whether the model is assigned to the CPU or the GPU; verify drivers, backend and card support in the documentation. There is no single expected speed: model, quantization, memory, context and cooling change the result.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="faq">
+    <h2>Frequently asked questions</h2>
+    <details><summary>Which is better, Ollama or LM Studio?</summary>
+      <p>It depends on how you want to use them. LM Studio offers a graphical interface for finding, downloading and managing models; Ollama is oriented toward the terminal, a local service and the API. RAM and compatibility depend on version, system, model and settings: check the requirements and measure the real usage on your PC.</p></details>
+    <details><summary>Which of the two uses less RAM?</summary>
+      <p>There is no fixed value valid for everyone: RAM usage depends on version, system, session and model. In Ollama you can check the active models with <code>ollama ps</code> and unload one with <code>ollama stop nome-modello</code>; in LM Studio check the settings of the installed version.</p></details>
+    <details><summary>Does Ollama work without a graphical interface?</summary>
+      <p>Ollama can be used from the terminal and started as a service without a desktop. For local requests the default API is on port 11434; access from the network requires additional configuration and must be limited to trusted devices.</p></details>
+    <details><summary>How do I request a response from Ollama from a program?</summary>
+      <p>Through its HTTP API on port 11434, which is also compatible with the OpenAI format. With curl: <code>curl http://localhost:11434/api/chat -d '{"model":"qwen2.5:7b","messages":[{"role":"user","content":"Ciao"}],"stream":false}'</code>. With <code>stream true</code> you receive the responses token by token. To serve another machine: <code>OLLAMA_HOST=0.0.0.0:11434 ollama serve</code>. In Python with the <code>ollama</code> library, or with any client that accepts an OpenAI base URL and points to <code>http://localhost:11434/v1</code>.</p></details>
+    <details><summary>Can they be used together?</summary>
+      <p>You can use both, but the path and the supported formats depend on the app and the model. Do not assume that a model downloaded in one is automatically importable in the other; check the documentation and watch the RAM if you keep them open together.</p></details>
+    <details><summary>Does Ollama support NVIDIA cards?</summary>
+      <p>Support depends on the GPU model, the operating system, the drivers and the backend available in the installed version. Consult the official documentation and check with <code>ollama ps</code> whether acceleration is used; the CPU can be available but the required instructions vary.</p></details>
+    <details><summary>Which model do I download to start?</summary>
+      <p>Choose the task first and check the RAM, context and runtime requirements on the model's page. An example tag is <code>qwen2.5:7b</code>, but it is not a universal recommendation; the <a href="../best-local-ai-models/">catalog</a> collects other examples.</p></details>
+  </section>
+
+  <nav class="paginv">
+    <a href="../#calcolatore"><b>🖥️ Calculator</b><span>The complete verdict on your machine</span></a>
+    <a href="../lm-studio-old-pc/"><b>🤖 LM Studio on an old PC</b><span>The settings for your PC</span></a>
+    <a href="../best-local-ai-models/"><b>📚 Best AI models</b><span>What to download with Ollama</span></a>
+    <a href="../linux-old-pcs/"><b>🐧 Linux for old PCs</b><span>Free up RAM for both</span></a>
+  </nav>
+</main>
+
+<section class="seo">
+  <h2>How to choose between Ollama and LM Studio</h2>
+  <p>LM Studio suits those who prefer a graphical interface for finding, downloading and managing models. Ollama offers a terminal workflow and a local API, useful for connecting programs or creating a service. Features, formats and requirements change with versions: consult the official documentation before installing or integrating a model.</p>
+  <p>Performance depends on the model, the quantization, the context, the CPU, the memory, the GPU and the backend. The size of the weights on disk does not match the RAM required; check the memory actually available during a test.</p>
+  <p>For Windows x64, LM Studio lists AVX2 among the requirements; the Linux x64 package includes AVX2 by default. Ollama uses different CPU runners and compatibility varies by build and backend. For CPUs without AVX2, verify the exact requirements before choosing a runtime.</p>
+</section>
+
+<footer>
+  <div class="fcols">
+    <div>
+      <b>Tools</b>
+      <a href="../#calcolatore">Calculator</a>
+      <a href="../#modelli">AI Models</a>
+      <a href="../#confronto">Compare two PCs</a>
+      <a href="../#linux">Linux distributions</a>
+      <a href="../#passaggi">Steps</a>
+      <a href="../#faq">FAQ</a>
+    </div>
+    <div>
+      <b>Dedicated guides</b>
+      <a href="../lm-studio-old-pc/">LM Studio on an old PC</a>
+      <a href="../linux-old-pcs/">Linux for old PCs</a>
+      <a href="../best-local-ai-models/">Best local AI models</a>
+      <a href="../ollama-vs-lm-studio/">Ollama vs LM Studio</a>
+    </div>
+    <div>
+      <b>Useful links</b>
+      <a href="https://lmstudio.ai/" target="_blank" rel="noopener">LM Studio</a>
+      <a href="https://ollama.com/" target="_blank" rel="noopener">Ollama</a>
+      <a href="https://linuxmint.com/" target="_blank" rel="noopener">Linux Mint</a>
+      <a href="https://huggingface.co/" target="_blank" rel="noopener">Hugging Face</a>
+      <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener">llama.cpp</a>
+    </div>
+    <div>
+      <b>Disclaimer</b>
+      <p>RAM usage and ports indicated are those declared by the respective projects and measured on reference configurations. Real performance varies with model, quantization and hardware.</p>
+    </div>
+  </div>
+  <div class="fbottom">© <span class="annoCorrente">2026</span> Old PC Guide · The brands mentioned belong to their respective owners. · <a href="../it/ollama-vs-lm-studio/?lang=it" hreflang="it" lang="it">🇮🇹 Italiano</a></div>
+</footer>
+
+<script src="../db.js?v=12"></script>
+<script src="ollama.js?v=4"></script>
+</body>
+</html>

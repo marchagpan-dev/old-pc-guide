@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+  <script src="/language.js?v=2"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LM Studio su PC vecchi: cosa funziona davvero e come si configura</title>
+<meta name="description" content="Requisiti aggiornati di LM Studio su PC x64 e Apple Silicon, memoria, VRAM e configuratore per valutare la compatibilità del tuo hardware.">
+<meta name="theme-color" content="#0d0d12">
+<link rel="canonical" href="https://www.guidapcvecchi.it/it/lm-studio-pc-vecchio/">
+<link rel="alternate" hreflang="it" href="https://www.guidapcvecchi.it/it/lm-studio-pc-vecchio/">
+<link rel="alternate" hreflang="en" href="https://www.guidapcvecchi.it/lm-studio-old-pc/">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="stylesheet" href="../../style.css?v=10">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "LM Studio su PC vecchi: cosa funziona davvero e come si configura",
+  "inLanguage": "it",
+  "datePublished": "2026-01-15",
+  "dateModified": "2026-10-08",
+  "author": { "@type": "Organization", "name": "Guida PC Vecchi" },
+  "publisher": { "@type": "Organization", "name": "Guida PC Vecchi" },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.guidapcvecchi.it/it/lm-studio-pc-vecchio/" },
+  "description": "Requisiti di LM Studio, istruzioni AVX2 su x64, memoria e configurazione per CPU e GPU."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "LM Studio funziona su un PC del 2010?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Per Windows x64, i requisiti ufficiali indicano AVX2; su Linux x64 il pacchetto include AVX2 per impostazione predefinita. Controlla la build e i requisiti della piattaforma. Apple Silicon usa il percorso nativo ARM." }
+    },
+    {
+      "@type": "Question",
+      "name": "Perché LM Studio non parte e dice che mancano istruzioni?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Controlla modello e flags della CPU, piattaforma, versione dell'app e runtime. Per Windows x64 LM Studio indica AVX2 nei requisiti; su Linux x64 il pacchetto include AVX2 per impostazione predefinita. Reinstallare non aggiunge istruzioni alla CPU." }
+    },
+    {
+      "@type": "Question",
+      "name": "Quanto devono essere grandi i modelli per un PC con 8 GB di RAM?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Con 8 GB totali è prudente provare modelli più piccoli e contesti ridotti: anche il sistema operativo, il runtime e la cache del contesto usano memoria. Alcuni 7-8B quantizzati possono essere al limite, mentre un 14B spesso richiede più memoria libera. Controlla la dimensione del file e lascia margine." }
+    },
+    {
+      "@type": "Question",
+      "name": "Conviene usare la GPU integrata del processore con LM Studio?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Dipende dalla GPU integrata, dal supporto del runtime e dal backend. Una GPU dedicata può accelerare l'inferenza se supportata e se abbastanza layer vengono caricati nella VRAM; il guadagno non è fisso e dipende dal modello, dalla scheda e dalla configurazione." }
+    },
+    {
+      "@type": "Question",
+      "name": "Come faccio a sapere se il mio processore ha le istruzioni AVX?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Su Windows puoi usare CPU-Z e leggere la riga Instruction Set; su Linux controlla le flags in /proc/cpuinfo. Il modello esatto della CPU è un indizio utile, ma verifica anche che l'istruzione sia esposta dal sistema e dal firmware." }
+    },
+    {
+      "@type": "Question",
+      "name": "Che differenza c'è tra LM Studio e Ollama con lo stesso PC?",
+      "acceptedAnswer": { "@type": "Answer", "text": "LM Studio offre un'interfaccia grafica per gestire modelli e chat; Ollama è orientato a terminale, servizio locale e API. Prestazioni e compatibilità dipendono da versione, modello, backend e hardware: non è garantito che siano equivalenti. Verifica la documentazione per il tuo uso." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header>
+  <a class="logo" href="../">🖥️ Guida <span>PC Vecchi</span></a>
+  <nav>
+    <a href="../#calcolatore">Calcolatore</a>
+    <a href="../lm-studio-pc-vecchio/" aria-current="page">LM Studio</a>
+    <a href="../linux-per-pc-datati/">Linux</a>
+    <a href="../migliori-modelli-ai-locali/">Modelli AI</a>
+    <a href="../ollama-vs-lm-studio/">Ollama vs LM Studio</a>
+  </nav>
+</header>
+
+<div class="crumbs">
+  <a href="../">Home</a><span>/</span>LM Studio su PC vecchi
+</div>
+
+<div class="hero sub">
+  <div class="kicker">Guida completa</div>
+  <h1>LM Studio su un PC vecchio: <em>cosa funziona davvero</em></h1>
+  <p>LM Studio offre un’interfaccia per scaricare e usare modelli in locale. La compatibilità dipende da CPU, sistema operativo, memoria, GPU e runtime. Questa pagina riassume i requisiti da verificare e fornisce una stima orientativa per la macchina selezionata.</p>
+  <div class="meta">
+    <span>Requisiti ufficiali da controllare</span>
+    <span>Stima locale nel browser</span>
+    <span>Tutto calcolato sul tuo PC</span>
+  </div>
+</div>
+
+<main>
+  <nav class="toc">
+    <b>In questa pagina</b>
+    <ol>
+      <li><a href="#verdetto">Il verdetto in 30 secondi</a></li>
+      <li><a href="#avx">Il requisito CPU AVX2 su x64</a></li>
+      <li><a href="#configura">Configuratore: le impostazioni per il tuo PC</a></li>
+      <li><a href="#installa">Installazione passo passo</a></li>
+      <li><a href="#gpu">GPU: NVIDIA, AMD, integrate</a></li>
+      <li><a href="#problemi">Problemi frequenti e come risolverli</a></li>
+      <li><a href="#faq">Domande frequenti</a></li>
+    </ol>
+  </nav>
+
+  <section class="card" id="verdetto">
+    <h2>Il verdetto in 30 secondi</h2>
+    <p class="desc">LM Studio può eseguire localmente un modello scaricato. Il funzionamento in locale non significa che ogni funzione dell’app sia offline: consulta le impostazioni e l’informativa del software.</p>
+
+    <div class="proscons">
+      <div class="pc pro">
+        <h3>✅ Quando funziona bene</h3>
+        <ul>
+          <li>CPU e sistema supportati dalla versione scelta</li>
+          <li>RAM sufficiente per modello, contesto e applicazioni</li>
+          <li>GPU facoltativa, se supportata da driver e backend</li>
+          <li>Spazio su disco per app e file dei modelli</li>
+        </ul>
+      </div>
+      <div class="pc con">
+        <h3>❌ Quando non parte</h3>
+        <ul>
+          <li>Windows x64 senza AVX2: requisito CPU non soddisfatto; su Linux verifica build e runtime</li>
+          <li>Memoria insufficiente per il modello e il contesto scelti</li>
+          <li>Versione del sistema operativo non supportata</li>
+          <li>Driver o backend non compatibili con la GPU</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout ok">
+      <h3>La buona notizia</h3>
+      <p>Una GPU dedicata non è necessaria se la CPU e il runtime sono compatibili. Prestazioni e memoria dipendono da modello, quantizzazione, contesto e hardware; 8 GB di RAM possono essere stretti e conviene provare prima con un modello piccolo.</p>
+    </div>
+  </section>
+
+  <section class="card" id="avx">
+    <h2>Requisito CPU: AVX2 su x64</h2>
+    <p class="desc">La CPU è uno dei requisiti da controllare insieme a sistema operativo, memoria e backend grafico.</p>
+
+    <p>Per <b>Windows x64</b>, i requisiti ufficiali di LM Studio indicano AVX2. Su <b>Linux x64</b> il pacchetto include AVX2 per impostazione predefinita. Una CPU con solo AVX non soddisfa il requisito Windows; per Linux verifica pacchetto, runtime e istruzioni disponibili. Apple Silicon usa il percorso nativo ARM e richiede macOS 14 o successivo. <a href="https://lmstudio.ai/docs/app/system-requirements" target="_blank" rel="noopener">Controlla i requisiti ufficiali aggiornati</a> prima dell'installazione.</p>
+
+    <div class="tablewrap">
+      <table class="cmp">
+        <thead>
+          <tr><th>Famiglia CPU</th><th>Indicazione</th><th>AVX2</th><th>Esito con la versione x64 corrente</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Windows x64 senza AVX2</td><td>modelli diversi</td><td><span class="b no">no</span></td><td class="c-no">Non soddisfa il requisito CPU indicato</td></tr>
+          <tr><td>Linux x64 senza AVX2</td><td>verifica build</td><td><span class="b mid">da verificare</span></td><td>Il pacchetto include AVX2 per impostazione predefinita; controlla se la build scelta è compatibile</td></tr>
+          <tr><td>CPU x64 con AVX2</td><td>verifica il modello</td><td><span class="b ok">sì</span></td><td class="c-vinc">Compatibile con il requisito CPU; verifica anche gli altri requisiti</td></tr>
+          <tr><td>Apple Silicon</td><td>serie M</td><td><span class="b ok">ARM</span></td><td class="c-vinc">Usa il percorso nativo per Apple Silicon</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout attenzione">
+      <h3>Se il tuo processore x64 non ha AVX2</h3>
+      <p>Se la CPU non soddisfa il requisito, considera queste alternative:<br>
+      1. <b>Verifica se il runtime offre un backend compatibile</b>: la disponibilità dipende dalla versione e dalla piattaforma.<br>
+      2. <b>Usa un modello remoto</b>: il PC può fare da client a un servizio o a un altro computer.<br>
+      3. <b>Prova prima un modello molto piccolo</b> solo se hai trovato una build mantenuta con requisiti compatibili. Le prestazioni variano e non sono garantite.</p>
+    </div>
+  </section>
+
+  <section class="card" id="configura">
+    <h2>Configuratore: le impostazioni per il tuo PC</h2>
+    <p class="desc">Scegli la tua macchina: il configuratore stima un modello adatto, un valore iniziale per il contesto e l'eventuale uso della GPU. Controlla sempre memoria libera e requisiti del runtime.</p>
+
+    <div class="minitool">
+      <div class="grid3">
+        <div class="field">
+          <label for="lRam">RAM installata</label>
+          <select id="lRam"></select>
+        </div>
+        <div class="field">
+          <label for="lCpu">Processore</label>
+          <select id="lCpu"></select>
+        </div>
+        <div class="field">
+          <label for="lGpu">Scheda grafica</label>
+          <select id="lGpu"></select>
+        </div>
+        <div class="field">
+          <label for="lDisco">Disco</label>
+          <select id="lDisco">
+            <option value="hdd">Hard disk meccanico</option>
+            <option value="ssd" selected>SSD SATA</option>
+            <option value="nvme">SSD NVMe</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="lUso">Che cosa vuoi farci</label>
+          <select id="lUso">
+            <option value="chat">Rispondere a domande e testi</option>
+            <option value="scrittura">Scrivere testi lunghi</option>
+            <option value="codice">Programmazione</option>
+            <option value="documenti">Analizzare i miei documenti</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="lSo">Sistema operativo</label>
+          <select id="lSo">
+            <option value="win" selected>Windows 10 / 11</option>
+            <option value="linux">Linux leggero (XFCE, LXQt)</option>
+            <option value="mac">macOS (Apple Silicon)</option>
+          </select>
+          <small>Con Apple Silicon il sistema passa automaticamente a macOS e RAM/VRAM sono memoria unificata.</small>
+        </div>
+      </div>
+      <div class="row-btn">
+        <button class="btn" onclick="lmConfigura()">⚙️ Calcola le impostazioni</button>
+        <button class="btn ghost" onclick="lmAzzera()">Azzera</button>
+      </div>
+    </div>
+
+    <div id="lmEsito"></div>
+  </section>
+
+  <section class="card" id="installa">
+    <h2>Installazione passo passo</h2>
+
+    <ol class="steps">
+      <li><b>Scarica l'installer corretto</b>
+        <div class="sm">Vai su <a href="https://lmstudio.ai/" target="_blank" rel="noopener">lmstudio.ai/download</a>. Scegli il pacchetto per la tua piattaforma supportata e controlla i requisiti di sistema pubblicati da LM Studio.</div></li>
+      <li><b>Prima di aprire tutto, libera RAM</b>
+        <div class="sm">Chiudi le applicazioni non necessarie e controlla quanta memoria è libera. Il consumo del sistema cambia in base a versione, driver e programmi in esecuzione.</div></li>
+      <li><b>Apri la ricerca e filtra per RAM</b>
+        <div class="sm">Nel campo di ricerca di LM Studio ogni modello mostra la dimensione del file e la RAM richiesta. Regola la barra laterale sui GB effettivamente liberi, non sul totale installato.</div></li>
+      <li><b>Scarica un modello solo, in Q4_K_M</b>
+        <div class="sm">Scegli una quantizzazione in base a memoria e qualità. Q4_K_M è un formato comune, ma l’impatto varia per modello e compito. Con poca RAM prova prima una variante piccola e verifica il contesto richiesto.</div></li>
+      <li><b>Configura prima di scrivere</b>
+        <div class="sm">Nel riquadro del modello, inizia con un contesto contenuto. Se la GPU e il backend sono supportati, prova un offload parziale lasciando spazio per cache e buffer. Mantieni il valore thread predefinito, poi confronta i risultati.</div></li>
+      <li><b>Prova una richiesta reale</b>
+        <div class="sm">Usa un compito che ti interessa e controlla qualità, velocità e consumo di memoria. Prestazioni e risposte variano con modello, quantizzazione e configurazione.</div></li>
+    </ol>
+
+    <div class="callout info">
+      <h3>Dove finiscono i modelli</h3>
+      <p><b>Windows:</b> <code>C:\Users\[tuouser]\.cache\lm-studio\models</code><br>
+      <b>Linux:</b> <code>~/.lmstudio/models</code><br>
+      <b>macOS:</b> <code>~/Library/Application Support/LM Studio/models</code><br>
+      Il percorso e la gestione dei modelli possono variare con installazione e versione; usa la sezione impostazioni dell’app per trovarlo e rimuovere i file.</p>
+    </div>
+  </section>
+
+  <section class="card" id="gpu">
+    <h2>GPU: NVIDIA, AMD e integrate</h2>
+    <p class="desc">Una GPU può accelerare l’inferenza se è supportata da driver, runtime e backend. La VRAM pone un limite alla parte del modello che si può caricare sulla scheda.</p>
+
+    <div class="tablewrap">
+      <table class="cmp">
+        <thead>
+          <tr><th>Scheda</th><th>VRAM</th><th>Effetto reale</th><th>Consigliato?</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Solo grafica integrata</td><td class="num">condivisa</td><td>Accelerazione variabile in base a GPU, driver e backend</td><td>Dipende</td></tr>
+          <tr><td>GTX 1050 Ti / GTX 1650</td><td class="num">4 GB</td><td>Il modello può essere diviso tra VRAM e RAM se il runtime supporta l’offload</td><td><span class="b mid">dipende</span></td></tr>
+          <tr><td>GTX 1660 Super, RTX 2060</td><td class="num">6 GB</td><td>La VRAM limita l’offload; parte del modello può restare in RAM</td><td><span class="b mid">a metà</span></td></tr>
+          <tr><td>GPU dedicata con 8 GB</td><td class="num">8 GB</td><td>La capacità può bastare per alcuni modelli quantizzati piccoli/medi; contesto e runtime usano altra memoria</td><td><span class="b mid">dipende</span></td></tr>
+          <tr><td>GPU dedicata con 12 GB</td><td class="num">12 GB</td><td>Più spazio per pesi e contesto; verifica dimensioni e backend del modello scelto</td><td><span class="b mid">dipende</span></td></tr>
+          <tr><td>GPU dedicata con 24 GB</td><td class="num">24 GB</td><td>Può ospitare modelli più grandi, ma la capacità necessaria dipende da quantizzazione e contesto</td><td><span class="b mid">dipende</span></td></tr>
+          <tr><td>GPU AMD o Intel</td><td class="num">variabile</td><td>Compatibilità e prestazioni dipendono da modello, sistema, driver e backend supportato</td><td><span class="b mid">verifica</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout attenzione">
+      <h3>Il parametro che conta è il GPU Offload</h3>
+      <p>In LM Studio il campo <b>GPU Offload</b> indica quanti strati del modello vengono assegnati alla GPU. Lascia margine in VRAM per contesto, cache e buffer; l'offload parziale può essere utile se il modello non entra interamente. Le opzioni disponibili e il risultato dipendono dal backend.</p>
+    </div>
+  </section>
+
+  <section class="card" id="problemi">
+    <h2>Problemi frequenti e come risolverli</h2>
+
+    <details><summary>«Failed to load model» o l'app si chiude subito</summary>
+      <p>Può dipendere da memoria insufficiente, runtime o istruzioni CPU richieste, file incompleto o backend GPU. Controlla il messaggio di errore, la RAM libera e i requisiti della versione installata. Se segnala AVX2, confronta il modello CPU con i requisiti correnti.</p></details>
+
+    <details><summary>Il modello si carica ma le risposte sono lentissime</summary>
+      <p>Controlla il contesto e riducilo se la memoria è al limite; prova diversi valori di thread perché il migliore varia con CPU e runtime; osserva se il modello è caricato su RAM, VRAM o entrambe; verifica quantizzazione e backend. I tempi di caricamento dipendono dal disco e dalla dimensione del file.</p></details>
+
+    <details><summary>Le risposte sono buone ma lente a crescere (carattere per carattere)</summary>
+      <p>Il testo viene generato un token alla volta. Il ritmo dipende da CPU o GPU, dimensione del modello, quantizzazione, contesto e runtime; una GPU compatibile può aiutare, ma non è l'unico fattore.</p></details>
+
+    <details><summary>«Context length exceeded» o la conversazione si blocca</summary>
+      <p>Stai chiedendo al modello di ricordare più di quanto gli hai dato. Il contesto pratico dipende da modello e memoria libera; prova a ridurlo se compare l’errore. Se ti serve ricordare documenti interi, caricali come file e chiedi domande su quelli, invece di incollare tutto in chat.</p></details>
+
+    <details><summary>Su AMD la GPU non viene usata</summary>
+      <p>Verifica che GPU, versione del driver e backend siano supportati dalla versione di LM Studio che usi. Controlla nel log se il runtime ha effettivamente selezionato la GPU e prova una configurazione nota come compatibile.</p></details>
+
+    <details><summary>Ho tutto configurato bene ma resta lento</summary>
+      <p>Controlla se la memoria lavora in single o dual channel. Il dual channel aumenta la banda teorica e può aiutare l'inferenza su CPU, ma il guadagno varia con processore, memoria, modello e runtime e non equivale necessariamente al doppio.</p></details>
+  </section>
+
+  <section class="card" id="faq">
+    <h2>Domande frequenti</h2>
+    <details><summary>LM Studio funziona su un PC del 2010?</summary>
+      <p>Per Windows x64, LM Studio indica AVX2 nei requisiti. Il pacchetto Linux x64 include AVX2 per impostazione predefinita: verifica la build e le istruzioni della CPU. Apple Silicon usa una versione nativa ARM. <a href="https://lmstudio.ai/docs/app/system-requirements" target="_blank" rel="noopener">Consulta i requisiti ufficiali</a> prima di installare.</p></details>
+    <details><summary>Perché dice che mancano istruzioni?</summary>
+      <p>Controlla requisiti della CPU, messaggio di errore, sistema operativo, runtime e versione dell'app. Su Windows x64 AVX2 è indicato tra i requisiti; su Linux x64 controlla le istruzioni richieste dalla build corrente. Una build alternativa va verificata.</p></details>
+    <details><summary>Quanto devono essere grandi i modelli per 8 GB di RAM?</summary>
+      <p>Con 8 GB totali è prudente provare modelli più piccoli e contesti ridotti. Un 7-8B quantizzato può essere al limite dopo aver considerato sistema e cache; un 14B spesso richiede più memoria libera. Controlla il modello e la memoria effettivamente disponibile.</p></details>
+    <details><summary>Conviene usare la grafica integrata?</summary>
+      <p>Dipende dal modello di grafica integrata, dai driver e dal backend supportato. In genere usa la RAM condivisa con il sistema; una GPU dedicata può offrire più banda e VRAM ma il risultato non è garantito dal solo dato di memoria.</p></details>
+    <details><summary>Come verifico se il mio processore ha AVX?</summary>
+      <p>Su Windows usa CPU-Z e guarda la riga <em>Instruction Set</em>. Su Linux controlla le flags in <code>/proc/cpuinfo</code>. Per Windows x64 AVX2 è indicato nei requisiti; su Linux x64 confronta le istruzioni esposte con quelle richieste dalla build corrente.</p></details>
+    <details><summary>È meglio LM Studio oppure Ollama?</summary>
+      <p>Interfaccia e funzioni sono diverse; prestazioni e compatibilità dipendono da versione, modello, backend e hardware. LM Studio offre un'interfaccia grafica; Ollama espone un'API HTTP. Il confronto completo è nella pagina <a href="../ollama-vs-lm-studio/">Ollama vs LM Studio</a>.</p></details>
+  </section>
+
+  <nav class="paginv">
+    <a href="../linux-per-pc-datati/"><b>🐧 Linux per PC datati</b><span>Quale distribuzione scegliere e perché conviene</span></a>
+    <a href="../migliori-modelli-ai-locali/"><b>🤖 Migliori modelli AI locali</b><span>Il catalogo completo filtrato per RAM</span></a>
+    <a href="../ollama-vs-lm-studio/"><b>⚖️ Ollama vs LM Studio</b><span>Due strumenti, un solo motore</span></a>
+    <a href="../#calcolatore"><b>🖥️ Calcolatore</b><span>Il verdetto completo sul tuo PC</span></a>
+  </nav>
+</main>
+
+<section class="seo">
+  <h2>Come valutare LM Studio su un PC datato</h2>
+  <p>La <b>quantizzazione</b> riduce la memoria occupata dai pesi, con una perdita di qualità che dipende da modello, formato e compito. Anche quando il file entra in memoria servono risorse per runtime, contesto e sistema operativo. Le dimensioni indicate nei cataloghi non sono da sole una garanzia di caricamento.</p>
+  <p>Per Windows x64 verifica AVX2 e gli altri requisiti pubblicati da LM Studio. Su Linux x64 controlla le istruzioni richieste dalla build. La velocità varia in base a processore, GPU, RAM, backend, raffreddamento, quantizzazione e contesto; le stime del configuratore sono indicative, non benchmark garantiti.</p>
+  <p>Un SSD può ridurre i tempi di avvio del sistema e di lettura dei modelli rispetto a un HDD, ma il tempo esatto dipende da dimensione del file, interfaccia e stato del computer. Prima di acquistare un disco verifica formato, collegamento e supporto di avvio della scheda madre.</p>
+</section>
+
+<footer>
+  <div class="fcols">
+    <div>
+      <b>Strumenti</b>
+      <a href="../#calcolatore">Calcolatore</a>
+      <a href="../#modelli">Modelli AI</a>
+      <a href="../#confronto">Confronta due PC</a>
+      <a href="../#linux">Distribuzioni Linux</a>
+      <a href="../#passaggi">Passaggi</a>
+      <a href="../#faq">FAQ</a>
+    </div>
+    <div>
+      <b>Guide dedicate</b>
+      <a href="../lm-studio-pc-vecchio/">LM Studio su PC vecchio</a>
+      <a href="../linux-per-pc-datati/">Linux per PC datati</a>
+      <a href="../migliori-modelli-ai-locali/">Migliori modelli AI locali</a>
+      <a href="../ollama-vs-lm-studio/">Ollama vs LM Studio</a>
+    </div>
+    <div>
+      <b>Link utili</b>
+      <a href="https://lmstudio.ai/" target="_blank" rel="noopener">LM Studio</a>
+      <a href="https://ollama.com/" target="_blank" rel="noopener">Ollama</a>
+      <a href="https://linuxmint.com/" target="_blank" rel="noopener">Linux Mint</a>
+      <a href="https://huggingface.co/" target="_blank" rel="noopener">Hugging Face</a>
+      <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener">llama.cpp</a>
+      <a href="https://toolkitgratis.com/" target="_blank" rel="noopener">ToolKit Gratis</a>
+    </div>
+    <div>
+      <b>Disclaimer</b>
+      <p>I punteggi sono stime indicative basate su parametri hardware. Le prestazioni reali variano in base a dissipazione, BIOS, sistema e quantizzazione. I valori inseriti nei calcolatori restano nel browser.</p>
+    </div>
+  </div>
+  <div class="fbottom">© <span class="annoCorrente">2026</span> Guida PC Vecchi · Le marche citate appartengono ai rispettivi proprietari. · <a href="../../lm-studio-old-pc/?lang=en" hreflang="en" lang="en">🇬🇧 English</a></div>
+</footer>
+
+<script src="../db.js?v=12"></script>
+<script src="lm.js?v=6"></script>
+</body>
+</html>

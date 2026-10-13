@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+  <script src="/language.js?v=2"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your old PC can still run AI? Linux, LM Studio and models — Old PC Guide</title>
+<meta name="description" content="Enter your RAM, processor and graphics card for an indicative estimate of Linux, LM Studio and local AI model compatibility. Try the free calculator and check your PC's real requirements.">
+<meta name="theme-color" content="#0d0d12">
+<link rel="canonical" href="https://www.guidapcvecchi.it/">
+<link rel="alternate" hreflang="it" href="https://www.guidapcvecchi.it/it/">
+<link rel="alternate" hreflang="en" href="https://www.guidapcvecchi.it/">
+<link rel="alternate" hreflang="x-default" href="https://www.guidapcvecchi.it/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css?v=10">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Old PC Guide",
+      "url": "https://www.guidapcvecchi.it/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows, macOS, Linux, Android, iOS",
+      "inLanguage": "en",
+      "description": "Free tool that estimates Linux, LM Studio and local AI model compatibility from the hardware data you enter. Check the real requirements before installing.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+      "featureList": [
+        "Verdict on Linux and recommended distributions",
+        "LM Studio and Ollama compatibility",
+        "AI model list filtered by RAM",
+        "Estimated speed in tokens per second",
+        "Installation steps and optimization tricks"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I find out what processor and RAM my PC has?",
+          "acceptedAnswer": { "@type": "Answer", "text": "On Windows press Win+R, type msinfo32 and press Enter: the Processor, Installed memory and System manufactured entries give everything you need. On Linux use the lscpu and free -h commands. Alternatively, the label on the motherboard inside the case shows the exact CPU model." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does LM Studio work on any processor?",
+          "acceptedAnswer": { "@type": "Answer", "text": "For Windows x64, LM Studio's official requirements indicate AVX2; the Linux x64 package includes AVX2 by default. Check the requirements of the platform and build you want to install. Apple Silicon uses a native ARM path." }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does the model need more GB of RAM than its parameters?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Besides the weights, memory is needed for the KV cache, runtime buffers, the context and the operating system. The cache grows with context and depends on the model architecture. Leave headroom over the file size and check free memory before loading it." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Linux worth installing on a PC that still runs Windows?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It can be worth it if the distribution you choose still supports the machine and its peripherals. Windows 10 ended mainstream support on October 14, 2025; in the European Economic Area, eligible users can join the free ESU program by staying signed into the same Microsoft account, or buy a one-time option for use with a local account, until October 12, 2027. Windows 11 compatibility depends on the CPU model and the other requirements, not just the generation." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is a 2012 PC with 16 GB of RAM better than a 2019 one with 8 GB?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It depends on the use: more RAM lets you try bigger models, while CPU, GPU, memory and backend affect speed. Dual channel increases the available memory bandwidth, but the real gain varies and can't be deduced from the PC's year alone." }
+        },
+        {
+          "@type": "Question",
+          "name": "What's the difference between Q4, Q5 and Q8 in AI models?",
+          "acceptedAnswer": { "@type": "Answer", "text": "They are formats that reduce the memory required by the weights compared to higher precisions. In general Q4 takes up less space than Q8, but each quantization can change quality differently depending on the model and task. Q4 is a common starting point, not a guarantee of unchanged quality." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header>
+  <a class="logo" href="./">🖥️ Old <span>PC Guide</span></a>
+  <nav>
+    <a href="#calcolatore" aria-current="page">Calculator</a>
+    <a href="lm-studio-old-pc/">LM Studio</a>
+    <a href="linux-old-pcs/">Linux</a>
+    <a href="best-local-ai-models/">AI Models</a>
+    <a href="ollama-vs-lm-studio/">Ollama vs LM Studio</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="kicker">Free tool · runs in your browser</div>
+  <h1>Your "old" PC <em>isn't dead</em>.<br>Find out what it can still do.</h1>
+  <p>Enter your RAM, processor and graphics card for an indicative estimate of compatibility, local models and Linux distributions. Calculations run in your browser and the values you enter are never sent anywhere.</p>
+</div>
+
+<main>
+  <nav class="toc">
+    <b>On this page</b>
+    <ul>
+      <li><a href="#calcolatore">1️⃣ Your PC: year, RAM, processor</a></li>
+      <li><a href="#modelli">2️⃣ Which models can run on your PC</a></li>
+      <li><a href="#confronto">3️⃣ Compare two PCs</a></li>
+      <li><a href="#linux">4️⃣ Which Linux to install</a></li>
+      <li><a href="#passaggi">5️⃣ The steps, in the right order</a></li>
+      <li><a href="#trucchi">6️⃣ Tricks that make a difference</a></li>
+      <li><a href="#faq">7️⃣ Frequently asked questions</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============ FORM ============ -->
+  <section class="card" id="calcolatore">
+    <h2>1️⃣ Your PC</h2>
+    <p class="desc">Don't know your exact processor? The <b>family</b> works too: <code>4th gen Core i5</code>, <code>Ryzen 5 3600</code>, <code>Pentium 4</code>…</p>
+
+    <div class="grid3">
+      <div class="field">
+        <label for="cpuSearch">Processor</label>
+        <div class="combo">
+          <input type="search" id="cpuSearch" placeholder="Search… e.g. i5 2400, ryzen 3600, phenom" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="cpuList" aria-autocomplete="list">
+          <select id="cpu" aria-label="Selected processor"></select>
+          <ul class="combo-list" id="cpuList" role="listbox" hidden></ul>
+          <p class="combo-note" id="cpuNote" hidden></p>
+        </div>
+        <small id="hintCpu">Type a few letters of the name, then pick from the list</small>
+      </div>
+
+      <div class="field">
+        <label for="ram">Installed RAM</label>
+        <select id="ram">
+          <option value="1">1 GB</option>
+          <option value="2">2 GB</option>
+          <option value="3">3 GB</option>
+          <option value="4" selected>4 GB</option>
+          <option value="6">6 GB</option>
+          <option value="8">8 GB</option>
+          <option value="12">12 GB</option>
+          <option value="16">16 GB</option>
+          <option value="24">24 GB</option>
+          <option value="32">32 GB</option>
+          <option value="48">48 GB</option>
+          <option value="64">64 GB</option>
+          <option value="128">128 GB</option>
+        </select>
+        <small>Total physical memory, not the "usable" amount</small>
+      </div>
+
+      <div class="field">
+        <label for="so">Operating system</label>
+        <select id="so">
+          <option value="win" selected>Windows 10 / 11</option>
+          <option value="linux">Light Linux (XFCE, LXQt)</option>
+          <option value="mac">macOS (Apple Silicon)</option>
+        </select>
+        <small>The estimate uses a simplified budget for the system: real usage changes with version, drivers and programs. It's selected automatically for Apple processors</small>
+      </div>
+    </div>
+
+    <details class="extra" id="boxAltro" hidden>
+      <summary>Not in the list — I'll enter it manually</summary>
+      <div class="grid3 inner">
+        <div class="field">
+          <label for="altroNuclei">Cores / threads</label>
+          <select id="altroNuclei">
+            <option data-core="1"  data-thread="1"  selected>1 / 1</option>
+            <option data-core="2"  data-thread="2">2 / 2</option>
+            <option data-core="2"  data-thread="4">2 / 4</option>
+            <option data-core="4"  data-thread="6">4 / 6</option>
+            <option data-core="4"  data-thread="8">4 / 8</option>
+            <option data-core="8"  data-thread="16">8 / 16</option>
+            <option data-core="12" data-thread="24">12 / 24</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="altroAvx">SIMD instruction support</label>
+          <select id="altroAvx">
+            <option value="0">None (pre-2008)</option>
+            <option value="1" selected>AVX (Sandy Bridge, FX)</option>
+            <option value="2">AVX2 (Haswell, Ryzen)</option>
+            <option value="3">AVX-512 (Skylake X, Zen 4/5)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="altroMem">RAM type</label>
+          <select id="altroMem">
+            <option value="0">DDR / DDR2 (≤2008)</option>
+            <option value="2">DDR3 (2009-2018)</option>
+            <option value="3" selected>DDR4 (2014-2023)</option>
+            <option value="4">DDR5 (2020-)</option>
+          </select>
+        </div>
+      </div>
+    </details>
+
+    <div class="grid3">
+      <div class="field">
+        <label for="gpuSearch">Graphics (optional, speeds up AI)</label>
+        <div class="combo">
+          <input type="search" id="gpuSearch" placeholder="Search… e.g. rtx 3060, gtx 1660, arc a770" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="gpuList" aria-autocomplete="list">
+          <select id="gpu" aria-label="Selected graphics card"></select>
+          <ul class="combo-list" id="gpuList" role="listbox" hidden></ul>
+          <p class="combo-note" id="gpuNote" hidden></p>
+        </div>
+        <div class="vram-box" id="boxVram" hidden>
+          <label for="gpuVram">Graphics card VRAM (GB)</label>
+          <input type="number" id="gpuVram" min="1" max="48" step="1" value="8" inputmode="numeric">
+        </div>
+        <small id="hintGpu">The GPU can speed up inference if the runtime and backend support it; VRAM doesn't guarantee the whole model will fit.</small>
+      </div>
+      <div class="field">
+        <label for="ssd">Storage</label>
+        <select id="ssd">
+          <option value="hdd" selected>Mechanical hard disk (HDD)</option>
+          <option value="ssd">SSD SATA</option>
+          <option value="nvme">SSD NVMe</option>
+        </select>
+        <small id="hintSsd">An SSD can reduce loading times compared to an HDD; results vary by drive and system</small>
+      </div>
+      <div class="field">
+        <label for="anno">PC year</label>
+        <input type="number" id="anno" min="1990" max="2100" step="1" value="2011" inputmode="numeric">
+        <small id="hintAnno">Syncs to the CPU's launch year; the PC may have been built or bought later.</small>
+      </div>
+    </div>
+
+    <div class="row-btn">
+      <button class="btn" onclick="analizza(true)">⚡ Calculate what it can do</button>
+      <button class="btn ghost" onclick="esempio()">🧪 Try an example</button>
+      <button class="btn ghost" onclick="reset()">↺ Reset</button>
+    </div>
+    <div class="msg" id="msg" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- ============ RESULT ============ -->
+  <section class="card" id="risultato" hidden>
+    <h2>🎯 The verdict on your PC</h2>
+    <p class="desc" id="riepilogo">—</p>
+
+    <div class="punti" id="punti"></div>
+
+    <div class="score-top">
+      <div class="score-num"><b id="scoreVal">0</b><span>/100</span></div>
+      <div class="score-bar"><div id="scoreFill"></div></div>
+      <div class="dots" id="dots" title="Level"></div>
+    </div>
+    <p class="desc score-note"><b>Indicative index</b>, not a benchmark: it combines <b>RAM (45%)</b> and <b>processor (55%)</b>. The year stays as context and doesn't count toward the score; compatibility, models and speed must be checked separately.</p>
+
+    <div class="verdicts">
+      <div class="vbox" id="vLinux">
+        <div class="vlab">Is Linux worth it?</div>
+        <div class="vval" id="vLinuxVal">—</div>
+        <div class="vnote" id="vLinuxNote"></div>
+      </div>
+      <div class="vbox" id="vLM">
+        <div class="vlab">LM Studio</div>
+        <div class="vval" id="vLMVal">—</div>
+        <div class="vnote" id="vLMNote"></div>
+      </div>
+      <div class="vbox" id="vWin">
+        <div class="vlab">Windows 11</div>
+        <div class="vval" id="vWinVal">—</div>
+        <div class="vnote" id="vWinNote"></div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div><b id="st1">—</b><span>Level</span></div>
+      <div><b id="st2">—</b><span>Usable free RAM</span></div>
+      <div><b id="st3">—</b><span>Max parameters</span></div>
+      <div><b id="st4">—</b><span>Models within estimate</span></div>
+      <div><b id="st5">—</b><span>7B Q4 speed (reference)</span></div>
+    </div>
+
+    <p class="desc" id="notaRam"></p>
+    <p class="avviso" id="notaVel7" hidden></p>
+
+    <div class="row-btn">
+      <button class="btn ghost" onclick="copiaRiassunto()">📋 Copy summary</button>
+      <button class="btn ghost" onclick="stampa()">🖨️ Print</button>
+    </div>
+  </section>
+
+  <!-- ============ MODELS ============ -->
+  <section class="card" id="modelli">
+    <h2>2️⃣ Models to evaluate on your PC</h2>
+    <p class="desc" id="modelliDesc">—</p>
+
+    <div class="tabs" id="tabs">
+      <button class="tab att" data-f="consigliati">✅ Within estimate</button>
+      <button class="tab" data-f="tutti">📋 All models</button>
+      <button class="tab" data-f="visione">👁️ Vision / multimodal</button>
+      <button class="tab" data-f="codice">💻 Code</button>
+      <button class="tab" data-f="pensiero">🧠 Reasoning</button>
+    </div>
+
+    <div class="tabbar">
+      <label for="filtroFam">Family</label>
+      <select id="filtroFam">
+        <option value="">All</option>
+        <option>Qwen</option><option>Llama</option><option>Gemma</option>
+        <option>Phi</option><option>Mistral</option><option>DeepSeek</option>
+        <option>SmolLM</option><option>Granite</option>
+      </select>
+      <label for="filtroQ">Quantization</label>
+      <select id="filtroQ">
+        <option value="">All</option>
+        <option>Q3_K_M (most compact)</option>
+        <option>Q4_K_M (reference)</option>
+        <option>Q5_K_M (more memory)</option>
+        <option>Q8_0 (lots of memory)</option>
+      </select>
+    </div>
+
+    <div class="tablewrap" id="tblwrap">
+      <table id="tbl">
+        <thead>
+          <tr>
+            <th>Model</th><th>Parameters</th><th>Quant.</th><th>File</th>
+            <th>Estimated RAM</th><th>Estimated speed (Q4 base)</th><th>Verdict</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"><tr><td colspan="7" class="empty">Select year, RAM and processor, then press <b>Calculate</b>.</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="nota">
+      <b>How to read the table.</b> The verdict applies indicative internal criteria and doesn't guarantee the model will start. <b>Estimated RAM</b> considers weights and a reference context cache: the OS, apps and configuration can require more memory. <b>Estimated speed (Q4 base)</b> is an indicative range in tokens per second, not a benchmark; other quantizations can change the result. <b>Quant.</b> indicates a weight format: size and quality vary by model and task.
+    </div>
+  </section>
+
+  <!-- ============ COMPARE ============ -->
+  <section class="card" id="confronto">
+    <h2>3️⃣ Compare two PCs</h2>
+    <p class="desc">Compare two setups for Linux, LM Studio, speed and models. The result is an estimate and a simple category count: it doesn't weight the tasks that matter most to you and doesn't replace a real test.</p>
+
+    <div class="vs">
+      <div class="vs-side">
+        <div class="vs-tag vs-a">A</div>
+        <div class="field">
+          <label for="cmpANome">PC A name</label>
+          <input type="text" id="cmpANome" placeholder="e.g. Acer Aspire 5720" maxlength="40">
+        </div>
+        <div class="grid3">
+          <div class="field">
+            <label for="cmpAAnno">Year</label>
+            <input type="number" id="cmpAAnno" min="1990" max="2100" value="2006">
+          </div>
+          <div class="field">
+            <label for="cmpARam">RAM</label>
+            <select id="cmpARam"></select>
+          </div>
+          <div class="field">
+            <label for="cmpASo">Operating system</label>
+            <select id="cmpASo">
+              <option value="win" selected>Windows</option>
+              <option value="linux">Light Linux</option>
+              <option value="mac">macOS (Apple Silicon)</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="cmpACpu">Processor</label>
+          <select id="cmpACpu"></select>
+        </div>
+        <div class="field">
+          <label for="cmpAGpu">Graphics</label>
+          <select id="cmpAGpu"></select>
+        </div>
+      </div>
+
+      <div class="vs-mid">VS</div>
+
+      <div class="vs-side">
+        <div class="vs-tag vs-b">B</div>
+        <div class="field">
+          <label for="cmpBNome">PC B name</label>
+          <input type="text" id="cmpBNome" placeholder="e.g. PC with Ryzen 5 3600" maxlength="40">
+        </div>
+        <div class="grid3">
+          <div class="field">
+            <label for="cmpBAnno">Year</label>
+            <input type="number" id="cmpBAnno" min="1990" max="2100" value="2019">
+          </div>
+          <div class="field">
+            <label for="cmpBRam">RAM</label>
+            <select id="cmpBRam"></select>
+          </div>
+          <div class="field">
+            <label for="cmpBSo">Operating system</label>
+            <select id="cmpBSo">
+              <option value="win" selected>Windows</option>
+              <option value="linux">Light Linux</option>
+              <option value="mac">macOS (Apple Silicon)</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="cmpBCpu">Processor</label>
+          <select id="cmpBCpu"></select>
+        </div>
+        <div class="field">
+          <label for="cmpBGpu">Graphics</label>
+          <select id="cmpBGpu"></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row-btn">
+      <button class="btn" onclick="confronta()">⚔️ Compare</button>
+      <button class="btn ghost" onclick="confrontoEsempio()">🧪 Two examples</button>
+    </div>
+
+    <div id="vsRisultato" hidden>
+      <div class="vs-verdict" id="vsVerdetto"></div>
+      <div class="tablewrap">
+        <table class="vs-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th id="vsHeadA">PC A</th>
+              <th id="vsHeadB">PC B</th>
+              <th>Winner</th>
+            </tr>
+          </thead>
+          <tbody id="vsBody"></tbody>
+        </table>
+      </div>
+      <div class="nota" id="vsNota"></div>
+    </div>
+  </section>
+
+  <!-- ============ LINUX ============ -->
+  <section class="card" id="linux">
+    <h2>4️⃣ Which Linux to install</h2>
+    <p class="desc" id="linuxDesc">—</p>
+    <div class="distro" id="distro"></div>
+    <div class="nota">
+      <b>Watch out for 32-bit.</b> Installable options are few and support varies: antiX 26.1 and Debian 12 i386 are possible candidates, but check CPU instructions, releases and drivers on the official sites. Debian 13 doesn't offer an i386 kernel or installer; Debian 12 i386 requires at least an i686 CPU and receives LTS updates until June 2028.
+    </div>
+  </section>
+
+  <!-- ============ STEPS ============ -->
+  <section class="card" id="passaggi">
+    <h2>5️⃣ The steps, in the right order</h2>
+    <p class="desc">Don't skip step 1. Seriously.</p>
+    <ol class="steps" id="steps"></ol>
+    <div class="links">
+      <a href="https://lmstudio.ai/" target="_blank" rel="noopener">⬇️ LM Studio</a>
+      <a href="https://ollama.com/download" target="_blank" rel="noopener">⬇️ Ollama</a>
+      <a href="https://github.com/ggml-org/llama.cpp/releases" target="_blank" rel="noopener">⬇️ llama.cpp</a>
+      <a href="https://linuxmint.com/download.php" target="_blank" rel="noopener">⬇️ Linux Mint</a>
+      <a href="https://xubuntu.org/download" target="_blank" rel="noopener">⬇️ Xubuntu</a>
+      <a href="https://antixlinux.com/download" target="_blank" rel="noopener">⬇️ antiX</a>
+      <a href="https://www.debian.org/releases/bookworm/" target="_blank" rel="noopener">⬇️ Debian 12 i386 (docs)</a>
+      <a href="https://rufus.ie/" target="_blank" rel="noopener">⬇️ Rufus (bootable USB)</a>
+    </div>
+  </section>
+
+  <!-- ============ TRICKS ============ -->
+  <section class="card" id="trucchi">
+    <h2>6️⃣ Tricks that make a difference on older PCs</h2>
+    <div class="trucchi" id="trucchiList"></div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="card" id="faq">
+    <h2>7️⃣ Frequently asked questions</h2>
+    <details><summary>How do I find out what processor and RAM I have?</summary>
+      <p><b>Windows:</b> press <code>Ctrl+Shift+Esc</code> and open Performance → CPU and Memory, or press <code>Win+R</code>, type <code>msinfo32</code> and read Processor and Installed RAM. The year field indicates the computer's era, not its speed.<br>
+      <b>Linux:</b> open a terminal and run <code>lscpu</code> (processor, cores, SIMD support) and <code>free -h</code> (RAM).<br>
+      <b>No software needed:</b> the label on the motherboard inside the case, or the code printed on the CPU, shows the exact model.</p>
+    </details>
+    <details><summary>Does LM Studio work on any processor?</summary>
+      <p>For <b>Windows x64</b>, LM Studio's official requirements indicate AVX2; on <b>Linux x64</b> the package includes AVX2 by default. Check the requirements of the platform and build you choose: an alternative runtime may have different requirements, but the calculator doesn't guarantee its compatibility. Apple Silicon uses a native ARM path.</p>
+    </details>
+    <details><summary>Why does the model need more GB of RAM than its parameters?</summary>
+      <p>Besides the weights, memory is needed for the <b>KV cache</b>, runtime buffers, the context and the operating system. The cache grows with context and depends on the model architecture. As a rule of thumb, leave headroom over the file size and check free memory before loading it.</p>
+    </details>
+    <details><summary>What's the difference between Q4, Q5, Q8 and "MXFP4"?</summary>
+      <p>They are <b>quantization</b> formats that take up less space than higher-precision weights. <code>Q4_K_M</code> is a common memory/quality trade-off, but the effect varies by model and task; it isn't indistinguishable from the original in every situation. Q8 needs more memory and can preserve more precision, while heavier quantizations can penalize some tasks more.</p>
+    </details>
+    <details><summary>Is a 2012 PC with 16 GB better than a 2019 one with 8 GB?</summary>
+      <p>It depends on the model and the use. <b>More RAM</b> lets you load bigger models or use larger contexts, but a bigger model isn't automatically better at every task. CPU, GPU, memory bandwidth, quantization and backend affect speed. Dual channel increases the available bandwidth, but the gain varies with the platform and workload.</p>
+    </details>
+    <details><summary>Is Linux worth installing on a PC that still runs Windows?</summary>
+      <p>It can be worth it, but check the distribution's support and compatibility with your machine. <b>Windows 10</b> ended mainstream support on October 14, 2025. In the European Economic Area, eligible users can join the free ESU program by staying signed into the same Microsoft account; the option for local-account users is a one-time purchase. The program ends on October 12, 2027. <b>Windows 11</b> compatibility depends on the exact CPU model and requirements such as TPM 2.0, UEFI and Secure Boot: the generation alone isn't enough. Try Linux in Live mode and check drivers, peripherals and applications before installing.</p>
+    </details>
+    <details><summary>Can I use the PC as an AI server? Like running the model on an old laptop and asking it from another PC?</summary>
+      <p>Yes. Ollama can provide a local API; to connect another PC on the network you must configure network listening and the firewall, because the API is local to the computer by default. Limit access to your trusted network and don't expose it directly to the Internet. Inference speed depends mainly on the computer running the model; the client handles the interface and the connection. Read the <a href="ollama-vs-lm-studio/#multipc">guide to connecting multiple PCs</a> before changing your network.</p>
+    </details>
+  </section>
+
+  <nav class="paginv">
+    <a href="lm-studio-old-pc/"><b>🤖 LM Studio on an old PC</b><span>The exact settings for your processor</span></a>
+    <a href="linux-old-pcs/"><b>🐧 Linux for old PCs</b><span>Which distribution to choose and how to install it</span></a>
+    <a href="best-local-ai-models/"><b>📚 Best local AI models</b><span>The catalog filtered by your RAM</span></a>
+    <a href="ollama-vs-lm-studio/"><b>⚖️ Ollama vs LM Studio</b><span>Which one to use, and the API for other programs</span></a>
+  </nav>
+</main>
+
+<section class="seo">
+  <h2>How to evaluate and revive an old PC</h2>
+  <p>A 2008-2012 PC can still be suitable for some tasks, but there's no verdict that works for everyone: component condition, operating system, CPU, RAM and required software all make a difference. Small local AI models can run on some setups; performance and compatibility must be verified on the device.</p>
+
+  <h3>The three things that really matter</h3>
+  <p>1. <b>RAM</b> limits how large the models you can load are, but weights, context cache, system and open programs consume memory. Always check the model's requirements and leave headroom.<br>
+  2. <b>CPU, GPU and runtime</b> affect performance and compatibility. SIMD requirements vary by platform: LM Studio indicates AVX2 for Windows x64 and includes it in the default Linux x64 package; other runtimes may have different configurations.<br>
+  3. <b>Memory speed</b> can affect CPU inference. Dual channel increases theoretical bandwidth, but the real benefit depends on CPU, memory, model and backend.</p>
+
+  <h3>What "running AI locally" means</h3>
+  <p>With a local runtime, the model runs on your own computer; requests and files don't have to be sent to a remote service, except for online features or telemetry in the app you choose. Compatibility, privacy, speed and quality depend on the runtime, the model and the configuration. Some models also support images or other inputs, but they require a compatible runtime.</p>
+
+  <h3>Why the processor and not the GPU</h3>
+  <p>A compatible GPU can speed up inference if the runtime supports it and enough of the model fits in VRAM. The effect varies a lot by GPU, backend, quantization and context; a fixed speedup number isn't reliable for every PC. Integrated graphics share system RAM, and acceleration support depends on model, driver and runtime. Before buying a card, check VRAM, power supply, space, firmware and software support.</p>
+
+  <h3>The role of Linux</h3>
+  <p>Linux can be useful to extend the life of a PC or try a different environment, but support depends on the distribution and the compatibility of drivers, browsers and peripherals. Memory usage changes with version, desktop, updates and active services. AI app compatibility is a separate check: look at the requirements of the runtime you choose, especially the SIMD instructions required by the CPU.</p>
+
+  <h3>Settings to try</h3>
+  <p>Threads, context window, quantization and GPU offload affect memory and performance, but no combination improves every PC by the same amount. Start from the default settings, reduce the context or model size if memory is short, and compare the results with a real test. Swap and zram can help stability, but they don't replace enough RAM and can slow down inference.</p>
+
+  <h3>The right time to recycle your PC</h3>
+  <p>To decide whether to revive it, first check the disk condition, the maximum RAM supported by the motherboard, operating system compatibility and the applications you need. Age helps you get oriented, but it doesn't determine performance or compatibility on its own. An old PC can be useful for light tasks or as a remote client, while running models locally depends on CPU, memory, GPU and runtime.</p>
+</section>
+
+<footer>
+  <div class="fcols">
+    <div>
+      <b>Tools</b>
+      <a href="#calcolatore">Calculator</a>
+      <a href="#modelli">AI Models</a>
+      <a href="#confronto">Compare two PCs</a>
+      <a href="#linux">Linux distributions</a>
+      <a href="#passaggi">Steps</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div>
+      <b>Dedicated guides</b>
+      <a href="lm-studio-old-pc/">LM Studio on an old PC</a>
+      <a href="linux-old-pcs/">Linux for old PCs</a>
+      <a href="best-local-ai-models/">Best local AI models</a>
+      <a href="ollama-vs-lm-studio/">Ollama vs LM Studio</a>
+    </div>
+    <div>
+      <b>Useful links</b>
+      <a href="https://lmstudio.ai/" target="_blank" rel="noopener">LM Studio</a>
+      <a href="https://ollama.com/" target="_blank" rel="noopener">Ollama</a>
+      <a href="https://linuxmint.com/" target="_blank" rel="noopener">Linux Mint</a>
+      <a href="https://huggingface.co/" target="_blank" rel="noopener">Hugging Face</a>
+      <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener">llama.cpp</a>
+    </div>
+    <div>
+      <b>Disclaimer</b>
+      <p>Scores are indicative estimates based on hardware parameters. Real performance varies with cooling, BIOS, system and quantization. Values entered in the calculators stay in your browser.</p>
+    </div>
+  </div>
+  <div class="fbottom">© <span id="annoSito">2026</span> Old PC Guide · Trademarks belong to their respective owners. · <a href="it/?lang=it" hreflang="it" lang="it">🇮🇹 Italiano</a></div>
+</footer>
+
+<script src="db.js?v=12"></script>
+<script src="app.js?v=22"></script>
+</body>
+</html>
