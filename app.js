@@ -829,7 +829,7 @@ function copiaRiassunto(){
       : s.os === "linux"
       ? "Operating system evaluated: Linux. Real compatibility depends on distribution, release and peripherals."
       : "Operating system evaluated: Windows. Real compatibility depends on the version requirements.",
-    "Old PC Guide — guidapcvecchi.it"
+    "Old PC Guide — oldpcguide.com"
   ].join("\n");
   copia(txt);
 }

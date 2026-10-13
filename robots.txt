@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.guidapcvecchi.it/sitemap.xml
+Sitemap: https://oldpcguide.com/sitemap.xml

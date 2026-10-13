@@ -830,7 +830,7 @@ function copiaRiassunto(){
       : s.os === "linux"
       ? "Sistema operativo valutato: Linux. La compatibilità reale dipende da distribuzione, release e periferiche."
       : "Sistema operativo valutato: Windows. La compatibilità reale dipende dai requisiti della versione.",
-    "guida PC Vecchi — guidapcvecchi.it"
+    "guida PC Vecchi — oldpcguide.com"
   ].join("\n");
   copia(txt);
 }
