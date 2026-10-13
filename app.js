@@ -853,9 +853,9 @@ function copia(txt){
 }
 function stampa(){ window.print(); }
 function reset(){
-  if (ANNO_PC) ANNO_PC.resetta(2011); else $("anno").value = 2011;
-  $("ram").value = 4; $("ssd").value = "hdd"; $("so").value = "win";
-  $("cpu").value = "Core i5-2400 (Sandy Bridge)";
+  if (ANNO_PC) ANNO_PC.resetta(2014); else $("anno").value = 2014;
+  $("ram").value = 16; $("ssd").value = "ssd"; $("so").value = "win";
+  $("cpu").value = "Core i5-4460 (Haswell)";
   $("gpu").value = "Integrated graphics only / no GPU";
   if (COMBO_CPU) COMBO_CPU.mostra();
   if (COMBO_GPU) COMBO_GPU.mostra();
@@ -926,7 +926,7 @@ function popolaRam(select, defaultVal){
 }
 function init(){
   // calculator selectors
-  popolaRam($("ram"), 4);
+  popolaRam($("ram"), 16);
   popolaRam($("cmpARam"), 4);
   popolaRam($("cmpBRam"), 16);
 
@@ -938,9 +938,10 @@ function init(){
                          { anno: function(){ return $("anno").value; } });
   const comboGpu = Combo("gpuSearch", "gpu", "gpuList", "gpuNote", DB_GRUPPI_GPU_HOME, DB_GPU, null, "gpu");
   COMBO_CPU = comboCpu; COMBO_GPU = comboGpu;
-  // initial values: a 2011 desktop, so the page is already useful at first glance
-  $("cpu").value = "Core i5-2400 (Sandy Bridge)";
+  // Initial example: a usable 2014 desktop with enough RAM for current tools.
+  $("cpu").value = "Core i5-4460 (Haswell)";
   $("gpu").value = "Integrated graphics only / no GPU";
+  $("ssd").value = "ssd";
   comboCpu.mostra(); comboGpu.mostra();
 
   // comparison selectors: same lists, without search and without "ALTRO"
