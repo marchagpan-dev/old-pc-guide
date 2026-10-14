@@ -10,4 +10,8 @@
   <url><loc>https://oldpcguide.com/it/lm-studio-pc-vecchio/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://oldpcguide.com/it/migliori-modelli-ai-locali/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://oldpcguide.com/it/ollama-vs-lm-studio/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://oldpcguide.com/about/</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://oldpcguide.com/it/chi-siamo/</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://oldpcguide.com/privacy-policy/</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://oldpcguide.com/it/privacy-policy/</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
 </urlset>

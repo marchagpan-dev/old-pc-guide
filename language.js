@@ -9,7 +9,9 @@
     "/lm-studio-old-pc/": { en: "/lm-studio-old-pc/", it: "/it/lm-studio-pc-vecchio/" },
     "/linux-old-pcs/": { en: "/linux-old-pcs/", it: "/it/linux-per-pc-datati/" },
     "/best-local-ai-models/": { en: "/best-local-ai-models/", it: "/it/migliori-modelli-ai-locali/" },
-    "/ollama-vs-lm-studio/": { en: "/ollama-vs-lm-studio/", it: "/it/ollama-vs-lm-studio/" }
+    "/ollama-vs-lm-studio/": { en: "/ollama-vs-lm-studio/", it: "/it/ollama-vs-lm-studio/" },
+    "/about/": { en: "/about/", it: "/it/chi-siamo/" },
+    "/privacy-policy/": { en: "/privacy-policy/", it: "/it/privacy-policy/" }
   };
 
   const englishToItalian = Object.fromEntries(
