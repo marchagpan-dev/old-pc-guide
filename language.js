@@ -11,7 +11,8 @@
     "/best-local-ai-models/": { en: "/best-local-ai-models/", it: "/it/migliori-modelli-ai-locali/" },
     "/ollama-vs-lm-studio/": { en: "/ollama-vs-lm-studio/", it: "/it/ollama-vs-lm-studio/" },
     "/about/": { en: "/about/", it: "/it/chi-siamo/" },
-    "/privacy-policy/": { en: "/privacy-policy/", it: "/it/privacy-policy/" }
+    "/privacy-policy/": { en: "/privacy-policy/", it: "/it/privacy-policy/" },
+    "/methodology/": { en: "/methodology/", it: "/it/metodo-stime/" }
   };
 
   const englishToItalian = Object.fromEntries(

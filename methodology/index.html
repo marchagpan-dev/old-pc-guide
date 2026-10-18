@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="../language.js?v=2"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How the Old PC Guide estimates work</title>
+  <meta name="description" content="How Old PC Guide estimates hardware compatibility, memory and local AI speed, what its datasets include, and what the calculator cannot measure.">
+  <meta name="theme-color" content="#0d0d12">
+  <link rel="canonical" href="https://oldpcguide.com/methodology/">
+  <link rel="alternate" hreflang="en" href="https://oldpcguide.com/methodology/">
+  <link rel="alternate" hreflang="it" href="https://oldpcguide.com/it/metodo-stime/">
+  <link rel="alternate" hreflang="x-default" href="https://oldpcguide.com/methodology/">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="stylesheet" href="../style.css?v=10">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How the Old PC Guide estimates work",
+    "inLanguage": "en",
+    "datePublished": "2026-10-15",
+    "dateModified": "2026-10-15",
+    "author": { "@type": "Organization", "name": "Old PC Guide" },
+    "publisher": { "@type": "Organization", "name": "Old PC Guide" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://oldpcguide.com/methodology/" },
+    "description": "Method, dataset coverage, source checks and limitations for the site's hardware and local AI estimates."
+  }
+  </script>
+</head>
+<body>
+<header>
+  <a class="logo" href="../">🖥️ Old <span>PC Guide</span></a>
+  <nav>
+    <a href="../#calcolatore">Calculator</a>
+    <a href="../lm-studio-old-pc/">LM Studio</a>
+    <a href="../linux-old-pcs/">Linux</a>
+    <a href="../best-local-ai-models/">AI Models</a>
+    <a href="../ollama-vs-lm-studio/">Ollama vs LM Studio</a>
+  </nav>
+</header>
+<div class="crumbs"><a href="../">Home</a><span>/</span>How estimates work</div>
+<div class="hero sub">
+  <div class="kicker">Method and limitations</div>
+  <h1>How the estimates <em>work</em></h1>
+  <p>This page explains what the calculator uses, what it leaves out, and how to check the official requirements before acting on an estimate.</p>
+</div>
+<main>
+  <section class="card">
+    <h2>What the calculator covers</h2>
+    <p class="desc">The calculator uses a static, curated dataset in the site's <code>db.js</code> file, not a live hardware or model database.</p>
+    <ul>
+      <li><b>62 processor profiles</b> across 11 groups, from representative 2003-era CPUs to 2024-era desktop, server, laptop and Apple Silicon examples. Some entries are generic profiles and explicitly require checking the exact model.</li>
+      <li><b>47 graphics profiles</b>, including representative NVIDIA, AMD and Intel products, plus manually entered VRAM where available.</li>
+      <li><b>37 local model examples</b>, including text, code, reasoning and vision-capable categories. These are examples, not a complete or ranked catalog.</li>
+      <li><b>10 Linux distribution profiles</b>. The calculator does not check whether an installer, driver or release is currently available for a particular machine.</li>
+    </ul>
+    <p>Coverage is intentionally selective. A missing processor, graphics card or model does not mean it is unsupported; use the exact vendor or project documentation.</p>
+  </section>
+
+  <section class="card">
+    <h2>How the scores and memory estimates are made</h2>
+    <p class="desc">The results are rules-based estimates produced by the site's own JavaScript formulas. They are not measured on a test bench.</p>
+    <ul>
+      <li>The overall hardware index combines a table-based RAM score (45%) and an internal CPU index (55%). The PC year provides context; it is not itself a performance measurement.</li>
+      <li>Each CPU has an internal 0–100 index and recorded characteristics such as cores, clock, instruction-set class and memory generation. These values are heuristics, not results from a standardized benchmark.</li>
+      <li>Model memory estimates use example Q4_K_M file sizes and RAM budgets that assume a 2,048-token reference context. They do not represent the exact requirements of every download, runtime or model revision.</li>
+      <li>The model list has an internal CPU threshold used to filter results. Passing it only means the profile passes this site's indicative criteria; it is not a guarantee that a model will load or be useful.</li>
+      <li>Estimated tokens per second use internal CPU profile values, instruction class and memory-generation factors, or GPU profile values and whether the estimated model file fits known VRAM. The result is displayed as a range, not measured throughput. Manually entered GPU VRAM uses a wider uncertainty range.</li>
+      <li>Operating-system memory reserves and GPU offload are simplified. The estimates cannot see free RAM, shared memory use, swap activity, thermal throttling or background applications on your PC.</li>
+    </ul>
+    <p>Real results vary with the exact device and CPU stepping, cooling and power limits, firmware, operating system, drivers, runtime and version, model file and quantization, context length, prompt, backend, GPU offload and other programs. Test the actual setup before relying on it.</p>
+  </section>
+
+  <section class="card">
+    <h2>Compatibility checks and source dates</h2>
+    <p class="desc">External requirements change independently from this site. These official references were checked on <b>October 15, 2026</b>; recheck them before installing or buying hardware.</p>
+    <ul>
+      <li><a href="https://learn.microsoft.com/windows-hardware/design/minimum/supported/windows-11-supported-intel-processors" target="_blank" rel="noopener">Microsoft's supported Intel processors for Windows 11</a> — used for the exact CPU names the calculator explicitly matches. A list match alone does not check TPM 2.0, Secure Boot, UEFI, storage or graphics requirements. Microsoft notes that processor lists may not reflect the newest offerings between updates.</li>
+      <li><a href="https://learn.microsoft.com/windows-hardware/design/minimum/supported/windows-11-supported-amd-processors" target="_blank" rel="noopener">Microsoft's supported AMD processors for Windows 11</a> — consult the current list for the exact CPU; the calculator does not infer support from generation or year.</li>
+      <li><a href="https://lmstudio.ai/docs/app/system-requirements" target="_blank" rel="noopener">LM Studio system requirements</a> — the requirements differ by platform and build. For example, the current documentation lists AVX2 for Windows x64 and describes the Linux x64 package's AVX2 support.</li>
+      <li><a href="https://docs.ollama.com/faq" target="_blank" rel="noopener">Ollama FAQ</a> and its <a href="https://docs.ollama.com/gpu" target="_blank" rel="noopener">GPU documentation</a> — check the current context settings and GPU/backend compatibility.</li>
+      <li><a href="https://ollama.com/library" target="_blank" rel="noopener">Ollama model library</a> and <a href="https://huggingface.co/models" target="_blank" rel="noopener">Hugging Face model pages</a> — check the exact model repository, file, quantization, license and revision. The catalog does not pin or verify a specific downloadable file for every example.</li>
+    </ul>
+    <p><b>Dataset limitation:</b> the current static dataset does not record a source URL and verification timestamp for every individual CPU, GPU, model size or Linux release. The date above records this page's check of the linked references, not a claim that every dataset row was independently revalidated on that date. Where a per-entry source trail is needed, verify the exact specification with the manufacturer or project.</p>
+  </section>
+
+  <section class="card">
+    <h2>Tests and corrections</h2>
+    <p class="desc">No repeatable hardware benchmark results are currently published by this page.</p>
+    <p>Calculator speed ranges are formula outputs, not results from running a named model on a named PC. We will only describe a result as a real test if the test was actually run and the hardware, operating system, runtime and version, model file and quantization, context settings and measurement method are reported.</p>
+    <p>For a correction or a reproducible test report, contact <a href="mailto:info@oldpcguide.com">info@oldpcguide.com</a>. Include the exact hardware and software versions and enough steps for another person to repeat it.</p>
+    <p>Method page last reviewed: October 15, 2026.</p>
+  </section>
+</main>
+<footer>
+  <div class="fbottom">© <span class="annoCorrente">2026</span> Old PC Guide · <a href="../about/">About</a> · <a href="../privacy-policy/">Privacy Policy</a> · <a href="mailto:info@oldpcguide.com">Contact: info@oldpcguide.com</a> · <a href="../it/metodo-stime/?lang=it" hreflang="it" lang="it">🇮🇹 Italiano</a></div>
+</footer>
+</body>
+</html>

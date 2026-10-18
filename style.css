@@ -13,6 +13,7 @@ body{
 }
 a{color:var(--accent2)}
 code{font-family:ui-monospace,Consolas,monospace;font-size:.9em;background:var(--card2);padding:1px 6px;border-radius:5px;color:var(--accent2)}
+pre{max-width:100%;overflow-x:auto}
 
 /* header */
 header{padding:22px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;max-width:1200px;margin:0 auto}
@@ -172,7 +173,7 @@ tr.nota td{color:var(--muted);font-size:.85rem}
 
 /* steps */
 .steps{list-style:none;counter-reset:s;display:grid;gap:12px}
-.steps li{counter-increment:s;position:relative;background:var(--card2);border:1px solid var(--line);border-radius:13px;padding:16px 18px 16px 58px;font-size:.93rem}
+.steps li{counter-increment:s;position:relative;min-width:0;background:var(--card2);border:1px solid var(--line);border-radius:13px;padding:16px 18px 16px 58px;font-size:.93rem}
 .steps li::before{content:counter(s);position:absolute;left:16px;top:15px;width:28px;height:28px;border-radius:9px;background:var(--accent-btn);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem}
 .steps b{display:block;margin-bottom:3px;font-size:.98rem}
 .steps .sm{color:var(--muted);font-size:.86rem}
